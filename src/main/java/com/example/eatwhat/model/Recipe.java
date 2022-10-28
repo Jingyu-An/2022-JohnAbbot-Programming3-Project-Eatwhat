@@ -1,4 +1,4 @@
-package com.example.eatwhat.recipe;
+package com.example.eatwhat.model;
 
 import javax.persistence.*;
 import java.util.Date;

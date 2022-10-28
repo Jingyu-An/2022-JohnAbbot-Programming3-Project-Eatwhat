@@ -1,4 +1,4 @@
-package com.example.eatwhat.role;
+package com.example.eatwhat.model;
 
 import javax.persistence.*;
 

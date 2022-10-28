@@ -1,4 +1,4 @@
-package com.example.eatwhat.user;
+package com.example.eatwhat.model;
 
 import javax.persistence.*;
 

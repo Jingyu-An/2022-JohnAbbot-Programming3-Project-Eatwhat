@@ -1,4 +1,4 @@
-package com.example.eatwhat.recipeCategory;
+package com.example.eatwhat.model;
 
 import javax.persistence.*;
 
