@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <title>Eat What</title>
+  </head>
+  <body>
+    <form th:action="@{/recipe/save}" th:object="${recipe}" method="post" enctype="multipart/form-data">
+      <table border="0" cellpadding="10">
+        <tr>
+          <td>Recipe Title:</td>
+          <td><input type="text" th:field="*{recipeTitle}" /></td>
+        </tr>
+        <tr>
+          <td>Recipe Description:</td>
+          <td><input type="text" th:field="*{recipeDescription}" /></td>
+        </tr>
+        <tr>
+          <td>Recipe Date:</td>
+          <td><input type="date" th:field="*{recipeDate}"/></td>
+        </tr>
+        <tr>
+          <td>Point:</td>
+          <td><input type="" th:field="*{point}"/></td>
+        </tr>
+        <tr>
+          <td>Photos:</td>
+          <td><input type="file" name="image" accept="image/png, image/jpeg" /></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="submit">Save</button> </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

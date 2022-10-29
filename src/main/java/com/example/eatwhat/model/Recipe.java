@@ -27,11 +27,20 @@ public class Recipe {
     private Date recipeDate;
 
     private int point;
-
+    
+    @Column(nullable = true, length = 64)
+    private String photos;
+    
     @OneToOne
     private User user;
 
     private long recipeCategoryId;
-
+    
+    @Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == 0) return null;
+        
+        return "/recipe-photos/" + id + "/" + photos;
+    }
 
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <title>Eat What</title>
+  </head>
+  <body>
+    <h1>Recipe List</h1>
+    <a href="/register_recipe">Create New Recipe</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+      <thead>
+      <tr>
+        <th>Recipe ID</th>
+        <th>Recipe Title</th>
+        <th>Recipe Description</th>
+        <th>Photo</th>
+        <th>Point</th>
+        <th>Recipe Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="recipe : ${listRecipes}">
+        <td th:text="${recipe.id}"></td>
+        <td th:text="${recipe.recipeTitle}"></td>
+        <td th:text="${recipe.recipeDescription}"></td>
+        <td>
+          <img th:src="@{${recipe.photosImagePath}}"/>
+        </td>
+        <td th:text="${recipe.point}"></td>
+        <td th:text="${recipe.recipeDate}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
