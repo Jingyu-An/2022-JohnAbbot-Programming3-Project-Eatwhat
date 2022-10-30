@@ -15,19 +15,16 @@
 
     <div class="links">
 
-        <div class="link">
-            <a href="/login">  LOGIN </a>
-        </div>
-
-
-<!--        isAuthenticated() -->
-<!--        it is show after login-->
-
-        <div class="link" sec:authorize="isAuthenticated()">
-            <a href="/user-page">  User Page  </a>
+        <!-- isAuthenticated-->
+        <!-- show div if login -->
+        <div class="link" sec:authorize="!isAuthenticated()">
+            <a href="/login"> LOGIN </a>
         </div>
         <div class="link" sec:authorize="isAuthenticated()">
-            <a href="/admin-page">  Magager Page </a>
+            <a href="/user-page"> User Page </a>
+        </div>
+        <div class="link" sec:authorize="isAuthenticated()">
+            <a href="/admin-page"> Magager Page </a>
         </div>
 
         <div class=" link" sec:authorize="isAuthenticated()">
@@ -37,6 +34,6 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/bootstrap.js}" />
+<script th:src="@{/js/bootstrap.js}"/>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.eatwhat.config;
 
+import com.example.eatwhat.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -9,30 +10,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    protected void configure(AuthenticationManagerBuilder auth)throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser(
-                        User.withDefaultPasswordEncoder()
-                                .username("user1")
-                                .password("1111")
-                                .roles("USER")
-                ).withUser(
-                        User.withDefaultPasswordEncoder()
-                                .username("admin")
-                                .password("2222")
-                                .roles("ADMIN")
-                );
+    private final UserService   userService;
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
     }
 
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
+
+
+//    Temporary method for Test
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Bean
     RoleHierarchyImpl roleHierarchy(){
@@ -69,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .requestMatchers(
                         PathRequest.toStaticResources().atCommonLocations()
+//                        PathRequest.toH2Console()
                 );
     }
 }
