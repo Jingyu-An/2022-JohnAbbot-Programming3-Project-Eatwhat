@@ -17,40 +17,40 @@ class UserRepositoryTest {
     @Autowired
     private RecipeRepository recipeRepository;
 
-//    @Test
-//    void joinFKTest() {
-//
-//        givenRecipe();
-//
-//        User result = recipeRepository.findById(1l)
-//                .orElseThrow(RuntimeException::new)
-//                .getUser();
-//
-//        System.out.println("<<<<Result >>>>>>\n" + result);
-//
-//    }
-//
-////    @Test
-////    private User givenUser() {
-////        User user = new User();
-////        user.setUsername("user1");
-////        user.setUserEmail("user@mail.com");
-////        user.setUserPassword("password");
-////        user.setUserPoint(5);
-////
-////        return userRepository.save(user);
-////    }
-//
-//    @Test
-//    private void givenRecipe() {
-//        Recipe recipe = new Recipe();
-//        recipe.setRecipeDate(now());
-//        recipe.setRecipeTitle("recipeTitle");
-//        recipe.setRecipeDescription("recipeDescription");
-//        recipe.setPoint(5);
-//        recipe.setUser(givenUser());
-//        recipeRepository.save(recipe);
-//
-//    }
+    @Test
+    void joinFKTest() {
+
+        givenRecipe();
+
+        User result = recipeRepository.findById(1l)
+                .orElseThrow(RuntimeException::new)
+                .getUser();
+
+        System.out.println("<<<<Result >>>>>>\n" + result);
+
+    }
+
+    @Test
+    private User givenUser() {
+        User user = new User();
+        user.setUsername("user1");
+        user.setUserEmail("user@mail.com");
+        user.setUserPassword("password");
+        user.setUserPoint(5);
+
+        return userRepository.save(user);
+    }
+
+    @Test
+    private void givenRecipe() {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeDate(now());
+        recipe.setRecipeTitle("recipeTitle");
+        recipe.setRecipeDescription("recipeDescription");
+        recipe.setPoint(5);
+        recipe.setUser(givenUser());
+        recipeRepository.save(recipe);
+
+    }
 
 }
