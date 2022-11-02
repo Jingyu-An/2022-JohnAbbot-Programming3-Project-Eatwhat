@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <title>EAT WHAT</title>
+  </head>
+  <body>
+    <form th:action="@{/user/save}" th:object="${user}" method="post" enctype="multipart/form-data">
+      <table border="0" cellpadding="10">
+        <tr>
+          <td>Name:</td>
+          <td><input type="text" th:field="*{username}" /></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><input type="text" th:field="*{userEmail}" /></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" th:field="*{userPassword}"/></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="submit">Register</button> </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

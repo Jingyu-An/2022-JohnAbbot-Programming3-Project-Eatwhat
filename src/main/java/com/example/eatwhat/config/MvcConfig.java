@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
   
+  
+  
+  // For image upload
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     exposeDirectory("recipe-photos", registry);
