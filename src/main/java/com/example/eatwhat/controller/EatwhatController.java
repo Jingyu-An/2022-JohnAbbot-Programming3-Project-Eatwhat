@@ -42,7 +42,7 @@ public class EatwhatController {
     
     @RequestMapping("/login")
     public String signin() {
-        return "signin";
+        return "index";
     }
 
     @RequestMapping("/admin/home")
