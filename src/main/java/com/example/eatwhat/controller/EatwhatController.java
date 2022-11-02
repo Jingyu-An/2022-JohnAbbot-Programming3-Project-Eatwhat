@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -30,23 +27,27 @@ public class EatwhatController {
     private UserService userService;
 
     public void initList(Model model) {
+        
         List<Recipe> listRecipes = recipeService.listAll();
         model.addAttribute("listRecipes", listRecipes);
 
         List<User> listUsers = userService.listAll();
         model.addAttribute("listUsers", listUsers);
-
-
     }
 
     @RequestMapping("/")
     public String homePage() {
         return "index";
     }
+    
+    @RequestMapping("/login")
+    public String signin() {
+        return "signin";
+    }
 
-
-    @RequestMapping("/admin")
-    public String adminPage() {
+    @RequestMapping("/admin/home")
+    public String adminPage(Model model) {
+        initList(model);
         return "admin";
     }
 
@@ -80,11 +81,9 @@ public class EatwhatController {
 
 
     // Recipe
-    @RequestMapping("/recipe")
+    @RequestMapping("/user/home")
     public String viewRecipe(Model model) {
-
         initList(model);
-
         return "recipe";
     }
 
