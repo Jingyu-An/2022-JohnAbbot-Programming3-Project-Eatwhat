@@ -25,4 +25,8 @@ public class User {
 
   private int userPoint;
 
+  private String auth;
+
+
+
 }
