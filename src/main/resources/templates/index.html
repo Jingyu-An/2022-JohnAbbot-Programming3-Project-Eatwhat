@@ -36,36 +36,35 @@
         </p>
         
         <p class="lead font-weight-normal">Delicious Recipes.</p>
-        <a class="btn btn-outline-secondary" href="/home?site=recipe">
-          Search Recipe
+
+        <a class="btn btn-outline-secondary" href="/login?site=user" sec:authorize="!authenticated">
+            User Login
         </a>
-        <a class="btn btn-outline-secondary" href="/login?site=user">
-          User Login
+
+        <a class="btn btn-outline-secondary" href="/home?site=recipe" >
+            Search Recipe
         </a>
-        <a class="btn btn-outline-secondary" href="/login?site=manager">
-          Manger Login
+
+        <a class="btn btn-outline-secondary" href="/login?site=manager"sec:authorize="!authenticated">
+            Manger Login
         </a>
-      </div>
+
     </div>
     
     <footer class="container py-5">
       <div class="row">
         <div class="col-12 col-md">
-          <small class="d-block mb-3 text-muted"
-          >&copy; 2022 by KARO</small
-          >
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#"> Spring Boot 2.4 </a></li>
-            <li><a class="text-muted" href="#"> Bootstrap 4 </a></li>
-            <li><a class="text-muted" href="#"> Font Awesome 4 </a></li>
-          </ul>
+            <small class="d-block mb-3 text-muted"
+            >&copy; 2022 by KARO</small
+            >
+
         </div>
         <div class="col-6 col-md">
-          <h5>User Site</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#"> Find Recipes </a></li>
-            <li><a class="text-muted" href="#"> My favorite recipes </a></li>
-          </ul>
+            <h5>Recipe Site</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#"> Search Recipes </a></li>
+                <li><a class="text-muted" href="#"> Recipe List </a></li>
+            </ul>
         </div>
         <div class="col-6 col-md">
           <h5>User Site</h5>
@@ -75,12 +74,11 @@
           </ul>
         </div>
         <div class="col-6 col-md">
-          <h5>Magager Site</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Manage Users </a></li>
-            <li><a class="text-muted" href="#">Manage Users </a></li>
-            <li><a class="text-muted" href="#">Manage Recipes </a></li>
-          </ul>
+            <h5>Magager Site</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Manage Users </a></li>
+                <li><a class="text-muted" href="#">Manage Recipes </a></li>
+            </ul>
         </div>
         <div class="col-6 col-md">
           <h5>Site developers</h5>
@@ -88,9 +86,14 @@
             <li><a class="text-muted" href="#">KARO</a></li>
           </ul>
         </div>
-      </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-  </body>
+        <div class="link" sec:authorize="authenticated">
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-info" type="submit">  Log Out </button>
+            </form>
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
