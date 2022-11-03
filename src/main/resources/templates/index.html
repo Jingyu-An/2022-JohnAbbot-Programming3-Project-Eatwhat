@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -37,7 +38,7 @@
         
         <p class="lead font-weight-normal">Delicious Recipes.</p>
 
-        <a class="btn btn-outline-secondary" href="/login?site=user" sec:authorize="!authenticated">
+        <a class="btn btn-outline-secondary" href="/login?site=user" sec:authorize="!isAuthenticated()">
             User Login
         </a>
 
@@ -45,7 +46,7 @@
             Search Recipe
         </a>
 
-        <a class="btn btn-outline-secondary" href="/login?site=manager"sec:authorize="!authenticated">
+        <a class="btn btn-outline-secondary" href="/login?site=manager" sec:authorize="!isAuthenticated()">
             Manger Login
         </a>
 
@@ -89,7 +90,7 @@
             <li><a class="text-muted" href="#">KARO</a></li>
           </ul>
         </div>
-        <div class="link" sec:authorize="authenticated">
+        <div class="link" sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
                 <button class="btn btn-info" type="submit">  Log Out </button>
             </form>

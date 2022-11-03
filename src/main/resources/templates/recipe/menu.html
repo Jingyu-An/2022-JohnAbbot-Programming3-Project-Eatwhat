@@ -37,7 +37,7 @@
                 </form>
               </div>
             </li>
-            <a class="nav-item btn btn-danger" href="/login?site=user" sec:authorize="!authenticated">
+            <a class="nav-item btn btn-danger" href="/login?site=user" sec:authorize="!isAuthenticated()">
               User Login
             </a>
           </ul>

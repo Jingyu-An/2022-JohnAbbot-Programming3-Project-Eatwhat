@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="/recipe/layout">
   <head>
     <title> User Site </title>
@@ -8,7 +9,7 @@
   
   <div layout:fragment="content">
     <div class="container ">
-      <div class="row mb-3 text-center" style="margin-top: 3em;" sec:authorize="authenticated">
+      <div class="row mb-3 text-center" style="margin-top: 3em;" sec:authorize="isAuthenticated()">
         <div class="col mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal"> Favorite Recipe </h4>
