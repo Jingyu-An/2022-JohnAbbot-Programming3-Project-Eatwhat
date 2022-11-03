@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,14 +34,25 @@ public class EatwhatController {
         return "redirect:/"+site;
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam String site,
-                        Model model) {
+//    @GetMapping("/login")
+//    public String login(@RequestParam String site,
+//                        Model model) {
+//        model.addAttribute("site", site);
+//        loginErrorSite = site;
+//        System.out.println("Login : site - " + site);
+//        return "loginForm";
+//    }
+
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(HttpServletRequest request,@RequestParam String site,Model model) {
+        String referrer = request.getHeader("Referer");
+        request.getSession().setAttribute("prevPage", referrer);
         model.addAttribute("site", site);
         loginErrorSite = site;
-        System.out.println("Login : site - " + site);
         return "loginForm";
     }
+
 
     @PostMapping("/login")
     public String loginPost(@RequestParam String site, Model model){

@@ -1,6 +1,7 @@
 package com.example.eatwhat.config;
 
 
+import com.example.eatwhat.handler.CustomLoginSuccessHandler;
 import com.example.eatwhat.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -51,18 +53,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .loginProcessingUrl("/loginprocess")
                 .usernameParameter("username")
-                .defaultSuccessUrl("/", false)
+//                .defaultSuccessUrl("/", false)
+                .successHandler(successHandler())
                 .failureUrl("/login-error")
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
-//      http
-//              .authorizeRequests(request->
-//                      request.anyRequest().permitAll()
-//              );
     }
+
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -70,4 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomLoginSuccessHandler("/defaultUrl");
+    }
 }
