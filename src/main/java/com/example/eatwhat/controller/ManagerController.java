@@ -33,16 +33,11 @@ public class ManagerController {
 
     @GetMapping({"", "/"})
     public String index(Model model) {
-        System.out.println("manager index : 1");
+        System.out.println("manager index : ");
         initList(model);
-        System.out.println("manager index : 2");
         return "/manager/index";
     }
 
-//    @GetMapping({"", "/"})
-//    public String index(){
-//
-//        return "/manager/index";
-//    }
+
 
 }

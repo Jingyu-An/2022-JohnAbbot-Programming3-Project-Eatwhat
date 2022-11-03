@@ -5,6 +5,7 @@
 <header th:fragment="menuFragment">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark site-manager">
         <div class="container">
+            <a class="navbar-brand" href="/">  <i class="fa fa-home"></i> </a>
             <a class="navbar-brand" href="/manager"> Manager Site </a>
             <button
                     class="navbar-toggler"
@@ -20,24 +21,13 @@
 
             <div class="collapse navbar-collapse" id="navbarsExample03">
                 <ul class="navbar-nav mr-auto">
-                    <li
-                            class="nav-item"
-                            th:classappend="${menu=='school' ? 'active' : ''}"
-                    >
+                    <li>
                         <a class="nav-link" href="/manager/school/list"> Manage User </a>
                     </li>
-                    <li
-                            class="nav-item"
-                            th:classappend="${menu=='' ? 'active' : ''}"
-                    >
-                        <a class="nav-link" href="/manager/user/list"> Manage User </a>
+                    <li>
+                        <a class="nav-link" href="/manager/user/list"> Manage Recipe </a>
                     </li>
-                    <li
-                            class="nav-item"
-                            th:classappend="${menu=='study' ? 'active' : ''}"
-                    >
-                        <a class="nav-link" href="/manager/study/list"> Manage Recipe </a>
-                    </li>
+
                 </ul>
                 <ul class="navbar-nav right-menus">
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
