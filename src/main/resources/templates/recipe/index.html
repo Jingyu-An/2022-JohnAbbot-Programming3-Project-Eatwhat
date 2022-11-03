@@ -1,40 +1,76 @@
 <!DOCTYPE html>
-<html 	xmlns:th="http://www.thymeleaf.org"
-         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-         layout:decorate="/recipe/layout">
-<head>
-    <title> User Site  </title>
-</head>
-
-<div layout:fragment="content" >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/recipe/layout">
+  <head>
+    <title> User Site </title>
+  </head>
+  
+  <div layout:fragment="content">
     <div class="container">
-        <div class="card-deck mb-3 text-center" style="margin-top: 3em;">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal"> Favorite Recipe </h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title"> <span th:text="${paperCount}">1</span>  </h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li> Favorite Recipe List </li>
-                    </ul>
-                    <a type="button" class="btn btn-md btn-outline-primary" href="/recipe/papers"> Show List </a>
-                </div>
+      <div class="card-deck mb-3 text-center" style="margin-top: 3em;">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal"> Favorite Recipe </h4>
+          </div>
+          <div class="card-body">
+            <div>
+              <a href="#">
+                <button type="button" class="btn btn-outline-primary">Show List</button>
+              </a>
             </div>
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal"> Find Recipes </h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title"> <span th:text="${resultCount}">1</span>  </h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li> Recipe List </li>
-                    </ul>
-                    <a type="button" class="btn btn-md btn-outline-primary" href="/recipe/results"> Show List </a>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal"> List of Recipe </h4>
+          </div>
+          <div class="card-body">
+            <div>
+              <a href="/recipe/signup">
+                <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
+              </a>
+            </div>
+            
+            <div>
+              <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Photo</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Point</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="recipe : ${listRecipes}">
+                  <td th:text="${recipe.id}"></td>
+                  <td>
+                    <img th:src="@{${recipe.photosImagePath}}" class="card-img"/>
+                  </td>
+                  <td th:text="${recipe.recipeTitle}"></td>
+                  <td th:text="${recipe.recipeDescription}"></td>
+                  <td th:text="${recipe.point}"></td>
+                  <td th:text="${recipe.recipeDate}"></td>
+                  <!--          <td>-->
+                  <!--            <a th:href="@{'/edit_user/' + ${user.id}}">-->
+                  <!--              <button type="button" class="btn btn-outline-primary">Edit</button>-->
+                  <!--            </a>-->
+                  <!--            <a th:href="@{'/delete_user/' + ${user.id}}">-->
+                  <!--              <button type="button" class="btn btn-outline-primary">Delete</button>-->
+                  <!--            </a>-->
+                  <!--          </td>-->
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
 </html>
