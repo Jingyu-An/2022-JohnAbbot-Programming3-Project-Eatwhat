@@ -49,20 +49,21 @@
 
         <div class="link-site">
             <ul>
-                <li><a href="/login?site=recipe"> USER </a></li>
-                <li><a href="/login?site=user"> User</a> </li>
+
+                <li><a href="/login?site=user"> USER</a> </li>
                 <li><a href="/login?site=manager"> MANAGER</a> </li>
             </ul>
+        </div>
+        <div th:if="${loginError}" class="alert alert-danger alert-dismissible fade show id-password-alert" role="alert">
+            <strong>email</strong> or <strong>password</strong> are wrong.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </form>
 
 
-    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show id-password-alert" role="alert">
-        <strong>email</strong> or <strong>password</strong> are wrong.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+
 
     <script>
     $(document).ready(()=>{
