@@ -29,8 +29,7 @@ public class EatwhatController {
 
     @GetMapping("/")
     public String home(Model model){
-        System.out.println("HOME");
-        return "index_test";
+        return "index";
     }
 
     @GetMapping("/login")
