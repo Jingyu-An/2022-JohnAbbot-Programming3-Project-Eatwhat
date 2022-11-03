@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+         layout:decorate="/recipe/layout">
+<head>
+    <title> User Site  </title>
+</head>
+
+<div layout:fragment="content" >
+    <div class="container">
+        <div class="card-deck mb-3 text-center" style="margin-top: 3em;">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal"> Favorite Recipe </h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title"> <span th:text="${paperCount}">1</span>  </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li> Favorite Recipe List </li>
+                    </ul>
+                    <a type="button" class="btn btn-md btn-outline-primary" href="/recipe/papers"> Show List </a>
+                </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal"> Find Recipes </h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title"> <span th:text="${resultCount}">1</span>  </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li> Recipe List </li>
+                    </ul>
+                    <a type="button" class="btn btn-md btn-outline-primary" href="/recipe/results"> Show List </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

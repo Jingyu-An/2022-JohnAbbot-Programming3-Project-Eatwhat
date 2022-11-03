@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+         layout:decorate="/sign_layout">
+<head>
+    <title> Recipe </title>
+</head>
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/login.css" />
+</th:block>
+
+<div layout:fragment="content">
+    <div class="container" style="text-align:start;">
+        <div class="row">
+
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3"> Recipe Register </h4>
+                <form class="needs-validation" novalidate method="post" th:action="@{/recipe/register/save}" th:object="${recipe}" enctype="multipart/form-data">
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Title: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{recipeTitle}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('recipeTitle')}" th:errors="*{recipeTitle}" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Description: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{recipeDescription}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Date: </label>
+                        <div class="col-8">
+                            <input type="date" th:field="*{recipeDate}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('recipeDate')}" th:errors="*{recipeDate}" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Point: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{point}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('point')}" th:errors="*{point}" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Photo: </label>
+                        <div class="col-8">
+                            <input type="file" name="image" accept="image/png, image/jpeg" />
+                            <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+            </div>
+<!--                    <div class="row">-->
+
+<!--                        <div class="col-md-6 mb-3">-->
+<!--                            <label for="name">Name </label>-->
+<!--                            <input type="text" class="form-control" id="name" name="name" placeholder="" value="" required>-->
+<!--                            <div class="invalid-feedback">-->
+<!--                                Valid first name is required.-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 mb-3">-->
+<!--                            <label for="phoneNumber"> Phone Number </label>-->
+<!--                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="" value="" required>-->
+<!--                            <div class="invalid-feedback">-->
+<!--                                Valid last name is required.-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="mb-3">-->
+<!--                        <label for="email">Email <span class="text-muted">Login ID</span></label>-->
+<!--                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>-->
+<!--                        <div class="invalid-feedback">-->
+<!--                            Please enter a valid email address for shipping updates.-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6 mb-3">-->
+<!--                            <label for="password"> Password </label>-->
+<!--                            <input type="password" class="form-control" id="password" name="password" placeholder="More than 8" required>-->
+<!--                            <div class="invalid-feedback">-->
+<!--                                Please enter your shipping address.-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 mb-3">-->
+<!--                            <label for="rePassword">retype password  </label>-->
+<!--                            <input type="password" class="form-control" id="rePassword" name="rePassword" placeholder="Please input the same password" required>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <hr class="mb-4">-->
+
+<!--                    <div class="mb-12 m-auto" style="text-align: center;">-->
+<!--                        <button class="btn btn-lg btn-secondary " type="submit">-->
+<!--                            Submit-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+</html>
