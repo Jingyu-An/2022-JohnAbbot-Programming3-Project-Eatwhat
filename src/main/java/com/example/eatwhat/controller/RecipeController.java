@@ -35,7 +35,7 @@ public class RecipeController {
         System.out.println("This is signup method");
         return "/recipe/signup";
     }
-    
+
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public String saveRecipe(@ModelAttribute("recipe") Recipe recipe,
                                    @RequestParam("image") MultipartFile multipartFile, Model model) throws IOException {
