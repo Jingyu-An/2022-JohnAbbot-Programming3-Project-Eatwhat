@@ -5,7 +5,7 @@ body {
 .navbar {
     margin-bottom: 20px;
 }
-.navbar.site-cook {
+.navbar.site-user {
     background-color: #45882f !important;
 }
 .navbar.site-recipe {

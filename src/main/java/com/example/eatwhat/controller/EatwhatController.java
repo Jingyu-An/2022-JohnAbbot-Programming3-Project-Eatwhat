@@ -20,12 +20,12 @@ import java.util.List;
 @Controller
 public class EatwhatController {
 
-    @Autowired
-    private RecipeService recipeService;
+//    @Autowired
+//    private RecipeService recipeService;
 
-    @Autowired
-    private UserService userService;
-
+//    @Autowired
+//    private UserService userService;
+//
 
     @GetMapping("/")
     public String home(Model model){
@@ -57,41 +57,41 @@ public class EatwhatController {
     }
 
 
-    @RequestMapping("/user/register")
-    public String showUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        List<String> roleList = Arrays.asList("User", "Admin");
-        model.addAttribute("roleList", roleList);
-        return "register_user";
-    }
+//    @RequestMapping("/user/register")
+//    public String showUser(Model model) {
+//        User user = new User();
+//        model.addAttribute("user", user);
+//        List<String> roleList = Arrays.asList("User", "Admin");
+//        model.addAttribute("roleList", roleList);
+//        return "register_user";
+//    }
+//
+//    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+//    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+//
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+//        user.setUserPassword(encodedPassword);
+//
+//        System.out.println(user.getAuth());
+//        if(user.getAuth().equals("Admin")){
+//            user.setAuth("ROLE_ADMIN,ROLE_USER");
+//        }else{
+//            user.setAuth("ROLE_USER");
+//        }
+//
+//        userService.save(user);
+//
+//        return "redirect:/login";
+//    }
 
-    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-
-        System.out.println(user.getAuth());
-        if(user.getAuth().equals("Admin")){
-            user.setAuth("ROLE_ADMIN,ROLE_USER");
-        }else{
-            user.setAuth("ROLE_USER");
-        }
-
-        userService.save(user);
-
-        return "redirect:/login";
-    }
-
-
-    @RequestMapping(value = "/recipe/save", method = RequestMethod.POST)
-    public RedirectView saveRecipe(@ModelAttribute("recipe") Recipe recipe,
-                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
-        recipeService.save(recipe, multipartFile);
-
-        return new RedirectView("/recipe", true);
-    }
+//    @RequestMapping(value = "/recipe/save", method = RequestMethod.POST)
+//    public RedirectView saveRecipe(@ModelAttribute("recipe") Recipe recipe,
+//                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
+//        recipeService.save(recipe, multipartFile);
+//
+//        return new RedirectView("/recipe", true);
+//    }
 
 }
