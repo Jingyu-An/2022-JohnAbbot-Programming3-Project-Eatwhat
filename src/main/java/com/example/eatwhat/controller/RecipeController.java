@@ -35,9 +35,6 @@ public class RecipeController {
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public String saveRecipe(@ModelAttribute("recipe") Recipe recipe,
                                    @RequestParam("image") MultipartFile multipartFile) throws IOException {
-//    public RedirectView saveRecipe(@ModelAttribute("recipe") Recipe recipe,
-//                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
-        System.out.println("This is save for recipe");
         recipeService.save(recipe, multipartFile);
 
         return index();
