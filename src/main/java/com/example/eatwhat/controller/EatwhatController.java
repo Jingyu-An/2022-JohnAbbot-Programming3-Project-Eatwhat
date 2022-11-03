@@ -26,30 +26,58 @@ public class EatwhatController {
     @Autowired
     private UserService userService;
 
-    public void initList(Model model) {
-        
-        List<Recipe> listRecipes = recipeService.listAll();
-        model.addAttribute("listRecipes", listRecipes);
 
-        List<User> listUsers = userService.listAll();
-        model.addAttribute("listUsers", listUsers);
+    @GetMapping("/")
+    public String home(Model model){
+        System.out.println("HOME");
+        return "index_test";
     }
 
-    @RequestMapping("/")
-    public String homePage() {
-        return "index";
+    @GetMapping("/login")
+    public String login(@RequestParam String site, Model model){
+        model.addAttribute("site", site);
+        System.out.println("Login " + site);
+        return "loginForm";
     }
+
+    @PostMapping("/login")
+    public String loginPost(@RequestParam String site, Model model){
+        model.addAttribute("site", site);
+        System.out.println("loginPost " + site);
+        return "redirect:/"+site;
+    }
+
+    @GetMapping("/signup")
+    public String signUp(@RequestParam String site){
+        System.out.println("signup");
+        return "redirect:/"+site+"/signup";
+    }
+
+
+
+//    @RequestMapping("/")
+//    public String homePage() {
+//        return "index";
+//    }
     
-    @RequestMapping("/login")
-    public String signin() {
-        return "index";
-    }
+//    @RequestMapping("/login")
+//    public String signin() {
+//        return "index";
+//    }
 
-    @RequestMapping("/admin/home")
-    public String adminPage(Model model) {
-        initList(model);
-        return "admin";
-    }
+//    public void initList(Model model) {
+//
+//        List<Recipe> listRecipes = recipeService.listAll();
+//        model.addAttribute("listRecipes", listRecipes);
+//
+//        List<User> listUsers = userService.listAll();
+//        model.addAttribute("listUsers", listUsers);
+//    }
+//    @RequestMapping("/admin/home")
+//    public String adminPage(Model model) {
+//        initList(model);
+//        return "admin";
+//    }
 
     @RequestMapping("/user/register")
     public String showUser(Model model) {
@@ -83,7 +111,7 @@ public class EatwhatController {
     // Recipe
     @RequestMapping("/user/home")
     public String viewRecipe(Model model) {
-        initList(model);
+//        initList(model);
         return "recipe";
     }
 
