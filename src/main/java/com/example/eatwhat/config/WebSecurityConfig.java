@@ -1,7 +1,6 @@
 package com.example.eatwhat.config;
 
 
-import com.example.eatwhat.handler.CustomLoginSuccessHandler;
 import com.example.eatwhat.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -46,20 +46,53 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/user/").hasRole("USER")
-                .antMatchers("/manager/").hasRole("ADMIN")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-                .successHandler(successHandler())
-                .failureUrl("/login-error")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+//        http.authorizeRequests()
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/user/").hasRole("USER")
+//                .antMatchers("/manager/").hasRole("ADMIN")
+//                .anyRequest().permitAll()
+//                .and()
+//                .formLogin()
+////                .loginPage("/login")
+//                .usernameParameter("username")
+//                .successHandler(successHandler())
+//                .failureUrl("/login-error")
+//                .permitAll()
+//                .and()
+//                .logout().logoutSuccessUrl("/").permitAll();
+
+
+        final UserLoginFilter filter = new UserLoginFilter(
+                authenticationManagerBean()
+        );
+        http
+                .csrf().disable()
+                .formLogin(login->{
+                    login.loginPage("/login")
+                    ;
+                })
+                .logout(logout->{
+                    logout.logoutSuccessUrl("/")
+                    ;
+                })
+                .addFilterAt(filter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exception->{
+                    exception.accessDeniedPage("/access-denied");
+                })
+                .authorizeRequests(config->{
+                    config
+                            .antMatchers("/").permitAll()
+                            .antMatchers("/login").permitAll()
+                            .antMatchers("/error").permitAll()
+                            .antMatchers("/signup/*").permitAll()
+                            .antMatchers("/recipe/**").permitAll()
+                            .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                            .antMatchers("/manager/**").hasAuthority("ROLE_ADMIN")
+                    ;
+                })
+        ;
+
+
     }
 
 
@@ -71,8 +104,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        return new CustomLoginSuccessHandler("/defaultUrl");
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler successHandler() {
+//        return new LoginSuccessHandler("/defaultUrl");
+//    }
 }
