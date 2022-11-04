@@ -34,6 +34,7 @@
               <table class="table table-hover table-striped table-bordered">
                 <thead class="thead-dark">
                 <tr>
+                  <th>Number</th>
                   <th>ID</th>
                   <th>Photo</th>
                   <th>Title</th>
@@ -45,6 +46,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="recipe : ${listRecipes}">
+                  <td th:text="${recipeStat.index}+1" class="align-middle"></td>
                   <td th:text="${recipe.id}" class="align-middle"></td>
                   <td>
                     <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"

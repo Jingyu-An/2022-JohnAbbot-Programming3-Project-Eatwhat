@@ -1,162 +1,102 @@
 <!DOCTYPE html>
 <html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-        layout:decorate="/manager/layout.html"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  layout:decorate="/manager/layout.html"
 >
-<head>
+  <head>
     <title>Manager</title>
-</head>
-
-<div layout:fragment="content">
+  </head>
+  
+  <div layout:fragment="content">
     <h1>This is the manager page</h1>
     <form th:action="@{/logout}" method="post">
-        <p>
-            Welcome
-            <br>
-            ID : <span sec:authentication="name"></span> <br>
-            소유 권한 : <span sec:authentication="authorities"></span> <br>
-        </p>
-        <input type="submit" value="Sign Out" class="btn btn-danger"/>
+      <p>
+        Welcome <span sec:authentication="name"></span> <br>
+        Auth : <span sec:authentication="authorities"></span> <br>
+      </p>
     </form>
     <div>
-        <h1>
-            List of User
-        </h1>
+      <h1>
+        List of User
+      </h1>
     </div>
     <div>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Total Point</th>
-                <th>Role</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${listUsers}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.userEmail}"></td>
-                <td th:text="${user.userPoint}"></td>
-                <td th:text="${user.auth}"></td>
-            </tr>
-            </tbody>
-        </table>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>Number</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Total Point</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}" th:if="${user.id != 1}">
+          <td th:text="${userStat.index}"></td>
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.userEmail}"></td>
+          <td th:text="${user.userPoint}"></td>
+          <td th:text="${user.auth}"></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-
+    
     <div>
-        <h1>
-            List of Recipe
-            <a href="/recipe/register">
-                <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
+      <h1>
+        List of Recipe
+        <a href="/recipe/register">
+          <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
+        </a>
+      </h1>
+    </div>
+    
+    <div>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>Number</th>
+          <th>ID</th>
+          <th>Photo</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Point</th>
+          <th>Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe : ${listRecipes}">
+          <td th:text="${recipeStat.index}+1" class="align-middle"></td>
+          <td th:text="${recipe.id}" class="align-middle"></td>
+          <td>
+            <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"
+                 style="width: 200px; height: auto"/>
+          </td>
+          <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
+          <td th:text="${recipe.recipeDescription}" class="align-middle"></td>
+          <td th:text="${recipe.point}" class="align-middle"></td>
+          <td th:text="${recipe.recipeDate}" class="align-middle"></td>
+          <td class="align-middle">
+            <a th:href="@{'/recipe/edit/' + ${recipe.id}}">
+              <button type="button" class="btn btn-outline-primary">Edit</button>
             </a>
-        </h1>
+          </td>
+          <td class="align-middle">
+            <a th:href="@{'/recipe/delete/' + ${recipe.id}}">
+              <button type="button" class="btn btn-outline-primary">Delete</button>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-
-    <div>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Photo</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Point</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="recipe : ${listRecipes}">
-                <td th:text="${recipe.id}"></td>
-                <td>
-                    <img th:src="@{${recipe.photosImagePath}}" class="card-img"/>
-                </td>
-                <td th:text="${recipe.recipeTitle}"></td>
-                <td th:text="${recipe.recipeDescription}"></td>
-                <td th:text="${recipe.point}"></td>
-                <td th:text="${recipe.recipeDate}"></td>
-                <!--          <td>-->
-                <!--            <a th:href="@{'/edit_user/' + ${user.id}}">-->
-                <!--              <button type="button" class="btn btn-outline-primary">Edit</button>-->
-                <!--            </a>-->
-                <!--            <a th:href="@{'/delete_user/' + ${user.id}}">-->
-                <!--              <button type="button" class="btn btn-outline-primary">Delete</button>-->
-                <!--            </a>-->
-                <!--          </td>-->
-            </tr>
-            </tbody>
-        </table>
-    </div>
-<!--    <div class="container">-->
-<!--        <div class="card-deck mb-3 text-center" style="margin-top: 3em;">-->
-<!--            <div class="card mb-4 shadow-sm">-->
-<!--                <div class="card-header">-->
-<!--                    <h4 class="my-0 font-weight-normal">User</h4>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <h1 class="card-title pricing-card-title">-->
-<!--                        <span th:text="${schoolCount}">0</span>-->
-<!--                    </h1>-->
-<!--                    <ul class="list-unstyled mt-3 mb-4">-->
-<!--                        <li>Uers</li>-->
-<!--                    </ul>-->
-<!--                    <a-->
-<!--                            type="button"-->
-<!--                            class="btn btn-md btn-outline-primary"-->
-<!--                            href="/manager/school/list"-->
-<!--                    >-->
-<!--                        User List-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="card mb-4 shadow-sm">-->
-<!--                <div class="card-header">-->
-<!--                    <h4 class="my-0 font-weight-normal">users</h4>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <h1 class="card-title pricing-card-title">-->
-<!--                        <span th:text="${teacherCount}">0</span>-->
-<!--                    </h1>-->
-<!--                    <ul class="list-unstyled mt-3 mb-4">-->
-<!--                        <li>users</li>-->
-<!--                    </ul>-->
-<!--                    <a-->
-<!--                            type="button"-->
-<!--                            class="btn btn-md btn-outline-primary"-->
-<!--                            href="/manager/user/list"-->
-<!--                    >-->
-<!--                        user List-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="card mb-4 shadow-sm">-->
-<!--                <div class="card-header">-->
-<!--                    <h4 class="my-0 font-weight-normal">Recipes</h4>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <h1 class="card-title pricing-card-title">-->
-<!--                        <span th:text="${studyCount}">0</span>-->
-<!--                    </h1>-->
-<!--                    <ul class="list-unstyled mt-3 mb-4">-->
-<!--                        <li>Recipes</li>-->
-<!--                    </ul>-->
-<!--                    <a-->
-<!--                            type="button"-->
-<!--                            class="btn btn-md btn-outline-primary"-->
-<!--                            href="/manager/recipe/list"-->
-<!--                    >-->
-<!--                        Recipe List-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-</div>
+  </div>
 </html>
