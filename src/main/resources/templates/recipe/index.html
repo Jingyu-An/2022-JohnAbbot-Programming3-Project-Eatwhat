@@ -41,7 +41,7 @@
                   <th>ID</th>
                   <th>Photo</th>
                   <th>Title</th>
-                  <th>Date</th>
+<!--                  <th>Date</th>-->
                   <th></th>
                 </tr>
                 </thead>
@@ -53,7 +53,7 @@
                          style="width: 200px; height: auto"/>
                   </td>
                   <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
-                  <td th:text="${recipe.recipeDate}" class="align-middle"></td>
+<!--                  <td th:text="${recipe.recipeDate}" class="align-middle"></td>-->
                   <td class="align-middle">
                     <button type="button" class="btn btn-primary" data-toggle="modal" th:href="'#recipe'+${recipe.id}">
                       Detail
