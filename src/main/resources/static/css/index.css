@@ -39,46 +39,11 @@ body {
 }
 
 
-.problem-list-area {
-    padding-right: 1em;
-}
 
-.problem-list-area .card {
-    width: 95%;
-    cursor: pointer;
-    margin-bottom: 1em;
-}
-
-.problem-list-area .card:hover {
-    opacity: 0.8;
-    background-color: #ddd;
-}
-
-.problem-editor {
-    position: fixed;
-    float: right;
-    width: 45%;
-    max-width: 500px;
-}
-
-.problem-editor textarea {
-    min-height: 200px;
-}
 
 @media (max-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
-    }
-    .problem-list-area {
-        border-right: none;
-        height: auto;
-        overflow-y: unset;
-    }
-    .problem-editor {
-        display: block;
-        position: inherit;
-        float: none;
-        width: 100%;
     }
 }
 
