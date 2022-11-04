@@ -27,7 +27,7 @@ public class RecipeController {
     public String index(Model model) {
     
         initList(model);
-        return "/user/index";
+        return "redirect:/user";
     }
 
     @GetMapping("/signup")
@@ -48,9 +48,7 @@ public class RecipeController {
     
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") long id, Model model) {
-//        ModelAndView mav = new ModelAndView("recipe/edit");
         Recipe recipe = recipeService.get(id);
-//        mav.addObject("recipe", recipe);
         model.addAttribute("recipe", recipe);
         
         return "/recipe/edit";

@@ -28,6 +28,10 @@ public class RecipeService {
     // For image save
     String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
     recipe.setPhotos(fileName);
+  
+    if (fileName.isEmpty()) {
+      fileName = "init";
+    }
     
     Recipe savedRecipe = repo.save(recipe);
     

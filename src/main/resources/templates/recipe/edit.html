@@ -21,7 +21,7 @@
                 th:object="${recipe}" enctype="multipart/form-data">
   
             <div class="form-group row">
-              <label class="col-4 col-form-label">Title: </label>
+              <label class="col-4 col-form-label">ID: </label>
               <div class="col-8">
                 <input type="text" th:field="*{id}" class="form-control" readonly/>
                 <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error"></span>
