@@ -8,27 +8,90 @@
   
   <div layout:fragment="content">
     <div class="container">
-      <div class="card-deck mb-3 text-center" style="margin-top: 3em;">
-        <div class="card mb-4 shadow-sm">
+      <div class="row mb-3 text-center" style="margin-top: 3em;">
+        <div class="col mb-4 shadow-sm">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal"> Recipes </h4>
+            <h4 class="my-0 font-weight-normal"> Add Recipe </h4>
           </div>
           <div class="card-body">
-            <ul class="list-unstyled mt-3 mb-4">
-              <li> User</li>
-            </ul>
-            <a type="button" class="btn btn-md btn-outline-primary" href="/user/recipe/list"> User List </a>
+            <div>
+              <a href="/recipe/signup">
+                <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="card mb-4 shadow-sm">
+      </div>
+      <div class="row mb-3 text-center" style="margin-top: 3em;">
+        <div class="col mb-4 shadow-sm">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal"> Recipes </h4>
+            <h4 class="my-0 font-weight-normal"> List of Recipe </h4>
           </div>
           <div class="card-body">
-            <ul class="list-unstyled mt-3 mb-4">
-              <li> My Recipes</li>
-            </ul>
-            <a type="button" class="btn btn-md btn-outline-primary" href="/user/paperTemplate/list"> Show list </a>
+            <div class="text-right">
+            </div>
+            <div>
+              <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Photo</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Detail</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="recipe : ${listRecipes}">
+                  <td th:text="${recipe.id}" class="align-middle"></td>
+                  <td>
+                    <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"
+                         style="width: 200px; height: auto"/>
+                  </td>
+                  <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
+                  <td th:text="${recipe.recipeDate}" class="align-middle"></td>
+                  <td class="align-middle">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" th:href="'#recipe'+${recipe.id}">
+                      Detail
+                    </button>
+                  </td>
+                  <td class="align-middle">
+                    <a th:href="@{'/recipe/edit/' + ${recipe.id}}">
+                      <button type="button" class="btn btn-outline-primary">Edit</button>
+                    </a>
+                  </td>
+                  <td class="align-middle">
+                    <a th:href="@{'/recipe/delete/' + ${recipe.id}}">
+                      <button type="button" class="btn btn-outline-primary">Delete</button>
+                    </a>
+                  </td>
+                  <!-- Modal -->
+                  <div class="modal fade" th:id="'recipe'+${recipe.id}" tabindex="-1" role="dialog"
+                       aria-labelledby="exampleModalLongTitle" aria-hidden="true"
+                       style="backdrop-filter: blur(10px)">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle" th:text="${recipe.recipeTitle}"></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" th:text="${recipe.recipeDescription}">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
