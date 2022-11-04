@@ -5,9 +5,11 @@ import com.example.eatwhat.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -39,8 +41,14 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("recipe") Recipe recipe,
+    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult,
                                    @RequestParam("image") MultipartFile multipartFile, Model model) throws IOException {
+        
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("recipe", recipe);
+            return "/recipe/signup";
+        }
+        
         recipeService.save(recipe, multipartFile);
 
         return index(model);

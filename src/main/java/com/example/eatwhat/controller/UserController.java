@@ -32,9 +32,4 @@ public class UserController {
         model.addAttribute("listRecipes", listRecipes);
         return "/user/index";
     }
-
-
-
-
-
 }

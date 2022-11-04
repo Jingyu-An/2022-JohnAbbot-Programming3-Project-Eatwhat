@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -109,7 +110,6 @@ public class EatwhatController {
         return "redirect:/" + site;
     }
 
-
     @GetMapping("/login-error")
     public String loginError(Model model) {
         System.out.println("Login ERROR site : " + loginErrorSite);
@@ -117,7 +117,6 @@ public class EatwhatController {
         model.addAttribute("site", loginErrorSite);
         return "loginForm";
     }
-
 
     @GetMapping("/signup")
     public String signUp(
@@ -130,8 +129,6 @@ public class EatwhatController {
         return "redirect:/"+site+"/signup";
     }
 
-
-
     @Autowired
     private UserService userService;
 
@@ -141,13 +138,18 @@ public class EatwhatController {
         User user = new User();
         model.addAttribute("user", user);
 
-        List<String> roleList = Arrays.asList("User", "Admin");
-        model.addAttribute("roleList", roleList);
+//        List<String> roleList = Arrays.asList("User", "Admin");
+//        model.addAttribute("roleList", roleList);
         return "/signup";
     }
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "/signup";
+        }
+        
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodedPassword);
