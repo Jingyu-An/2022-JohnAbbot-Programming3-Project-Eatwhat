@@ -1,8 +1,11 @@
 package com.example.eatwhat.controller;
 
 import com.example.eatwhat.model.Recipe;
+import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,12 +46,14 @@ public class RecipeController {
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult,
                                    @RequestParam("image") MultipartFile multipartFile, Model model) throws IOException {
-        
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
             return "/recipe/signup";
         }
-        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        recipe.setUser(user);// insert user information
         recipeService.save(recipe, multipartFile);
 
         return index(model);

@@ -44,10 +44,8 @@ class UserRepositoryTest {
     @Test
     private void givenRecipe() {
         Recipe recipe = new Recipe();
-        recipe.setRecipeDate(now());
         recipe.setRecipeTitle("recipeTitle");
         recipe.setRecipeDescription("recipeDescription");
-        recipe.setPoint(5);
         recipe.setUser(givenUser());
         recipeRepository.save(recipe);
 
