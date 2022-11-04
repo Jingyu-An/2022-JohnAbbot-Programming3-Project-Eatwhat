@@ -43,7 +43,6 @@ public class UserService implements UserDetailsService {
     if (user == null) {
       throw new UsernameNotFoundException("User not found");
     }
-    
-    return new UserDetail(user);
+    return repo.findByUserId(user.getUsername());
   }
 }

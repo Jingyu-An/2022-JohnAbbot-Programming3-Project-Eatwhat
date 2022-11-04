@@ -38,6 +38,7 @@ public class UserController {
         model.addAttribute("roleList", roleList);
         return "/user/signup";
     }
+    
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
