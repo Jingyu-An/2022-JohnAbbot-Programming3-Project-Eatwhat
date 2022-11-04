@@ -38,6 +38,7 @@ public class EatwhatController {
 
     @GetMapping("/home")
     public String recipeBoard(@RequestParam String site, Model model) {
+        System.out.println("HOME Recipe Board");
         model.addAttribute("site", site);
         return "redirect:/" + site;
     }

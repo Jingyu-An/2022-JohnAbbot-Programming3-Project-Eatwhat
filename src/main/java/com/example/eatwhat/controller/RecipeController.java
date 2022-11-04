@@ -22,12 +22,12 @@ public class RecipeController {
         List<Recipe> listRecipes = recipeService.listAll(); // Need to change with inner join
         model.addAttribute("listRecipes", listRecipes);
     }
-    
+
     @GetMapping({"", "/"})
     public String index(Model model) {
-    
+
         initList(model);
-        return "redirect:/user";
+        return "/recipe/index";
     }
 
     @GetMapping("/signup")
