@@ -34,34 +34,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/signup")
-    public String signUp(Model model){
-        User user = new User();
-        model.addAttribute("user", user);
-        System.out.println("This is user signup method");
-        List<String> roleList = Arrays.asList("User", "Admin");
-        model.addAttribute("roleList", roleList);
-        return "/user/signup";
-    }
-    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-
-        System.out.println(user.getAuth());
-        if(user.getAuth().equals("Admin")){
-            user.setAuth("ROLE_ADMIN,ROLE_USER");
-        }else{
-            user.setAuth("ROLE_USER");
-        }
-
-        userService.save(user);
-
-        return "redirect:/login?site=user";
-    }
-    
 
 
 }

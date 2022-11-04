@@ -118,11 +118,7 @@ public class EatwhatController {
         return "loginForm";
     }
 
-//    @GetMapping("/signup")
-//    public String signUp(@RequestParam String site) {
-//        System.out.println("signup");
-//        return "redirect:/" + site + "/signup";
-//    }
+
     @GetMapping("/signup")
     public String signUp(
             @RequestParam String site,
@@ -133,6 +129,41 @@ public class EatwhatController {
         }
         return "redirect:/"+site+"/signup";
     }
+
+
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/register")
+    public String signUp(Model model){
+        System.out.println("This is user signup method");
+        User user = new User();
+        model.addAttribute("user", user);
+
+        List<String> roleList = Arrays.asList("User", "Admin");
+        model.addAttribute("roleList", roleList);
+        return "/signup";
+    }
+    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
+    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+        user.setUserPassword(encodedPassword);
+
+        System.out.println(user.getAuth());
+        if(user.getAuth().equals("Admin")){
+            user.setAuth("ROLE_ADMIN,ROLE_USER");
+        }else{
+            user.setAuth("ROLE_USER");
+        }
+
+        userService.save(user);
+
+        return "redirect:/login?site=user";
+    }
+
 
     @GetMapping("/access-denied")
     public String accessDenied(){
