@@ -95,5 +95,14 @@ public class RecipeController {
         return "/recipe/newRecipe";
     }
 
+    @RequestMapping(value = "/saveRecipe", method = RequestMethod.POST)
+    public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe) {
+        System.out.println(recipe);
+        System.out.println("saving a new recipe");
+       // recipeService.save(recipe, new MultipartFile); //TODO how save image in recipe?
+        return "redirect:/"; //TODO redirect to list page
+
+    }
+
 }
 
