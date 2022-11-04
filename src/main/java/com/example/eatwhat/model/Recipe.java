@@ -36,7 +36,7 @@ public class Recipe {
     @Column(nullable = true, length = 64)
     private String photos;
     
-    @OneToOne
+    @ManyToOne
     private User user;
 
     @ManyToOne(targetEntity = RecipeCategory.class, cascade = CascadeType.ALL,fetch= FetchType.EAGER)
