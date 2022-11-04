@@ -46,7 +46,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="recipe : ${listRecipes}">
+                <tr th:each="recipe : ${userRecipeList}">
                   <td th:text="${recipe.id}" class="align-middle"></td>
                   <td>
                     <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"

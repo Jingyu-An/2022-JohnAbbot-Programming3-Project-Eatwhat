@@ -30,7 +30,7 @@ public class RecipeController {
     private RecipeService recipeService;
     @Autowired
     private RecipeCategoryService recipeCategoryService;
-
+    private User user;
 //    @GetMapping({"", "/"})
 //    public String index(Model model) {
 //        return "sth" // TODO check it out
@@ -41,10 +41,17 @@ public class RecipeController {
         model.addAttribute("listRecipes", listRecipes);
     }
 
+    public void userRecipeList(Model model) {
+        List<Recipe> userRecipeList = recipeService.listByUser(user.getId()); // Need to change with inner join
+        model.addAttribute("userRecipeList", userRecipeList);
+    }
+
     @GetMapping({"", "/"})
     public String index(Model model) {
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        user = (User) authentication.getPrincipal();
         initList(model);
+        userRecipeList(model);
         return "/recipe/index";
     }
 
@@ -64,8 +71,7 @@ public class RecipeController {
             model.addAttribute("recipe", recipe);
             return "/recipe/index";
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+
         recipe.setUser(user);// insert user information
         recipeService.save(recipe, multipartFile);
 
