@@ -41,7 +41,7 @@
         <input type="hidden" name="redirectUrl" th:value="${'/'+site}"/>
         <button class="btn btn-lg btn-primary btn-block" th:classappend="${site}" type="submit"> Login</button>
         <a th:if="${!site.equals('manager')} " class="btn btn-lg btn-secondary btn-block"
-           th:href="@{/signup(site=${site})}"> Register </a>
+           href="/register"> Register </a>
         
         <div class="link-site">
           <ul>

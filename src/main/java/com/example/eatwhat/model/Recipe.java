@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -22,8 +23,10 @@ public class Recipe {
     @Name("recipe_id")
     private long id;
 
+    @NotBlank
     private String recipeTitle;
 
+    @NotBlank
     private String recipeDescription;
 
     private int recipePoint;

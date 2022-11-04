@@ -2,6 +2,7 @@ package com.example.eatwhat.controller;
 
 import com.example.eatwhat.model.Recipe;
 import com.example.eatwhat.model.User;
+import com.example.eatwhat.service.RecipeService;
 import com.example.eatwhat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,40 +24,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RecipeService recipeService;
+
     @GetMapping({"", "/"})
-    public String index(){
+    public String index(Model model){
+
+        List<Recipe> listRecipes = recipeService.listAll();
+        model.addAttribute("listRecipes", listRecipes);
         return "/user/index";
     }
-
-
-    @GetMapping("/signup")
-    public String signUp(Model model){
-        User user = new User();
-        model.addAttribute("user", user);
-        System.out.println("This is user signup method");
-        List<String> roleList = Arrays.asList("User", "Admin");
-        model.addAttribute("roleList", roleList);
-        return "/user/signup";
-    }
-    
-    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-
-        System.out.println(user.getAuth());
-        if(user.getAuth().equals("Admin")){
-            user.setAuth("ROLE_ADMIN,ROLE_USER");
-        }else{
-            user.setAuth("ROLE_USER");
-        }
-
-        userService.save(user);
-
-        return "redirect:/login?site=user";
-    }
-
-
 }

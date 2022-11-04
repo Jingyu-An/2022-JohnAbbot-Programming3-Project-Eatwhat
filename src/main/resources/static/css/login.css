@@ -82,3 +82,7 @@ body {
 .link-site ul li a:hover {
   color: #ccc;
 }
+
+.error {
+  color: red;
+}

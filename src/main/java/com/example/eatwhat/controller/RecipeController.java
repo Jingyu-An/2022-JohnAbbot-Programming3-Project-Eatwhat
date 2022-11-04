@@ -28,9 +28,15 @@ public class RecipeController {
     @GetMapping({"", "/"})
     public String index(Model model) {
     
+    public void initList(Model model) {
         List<Recipe> listRecipes = recipeService.listAll(); // Need to change with inner join
         model.addAttribute("listRecipes", listRecipes);
-        
+    }
+
+    @GetMapping({"", "/"})
+    public String index(Model model) {
+
+        initList(model);
         return "/recipe/index";
     }
 
@@ -43,9 +49,30 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String saveRecipe(@ModelAttribute("recipe") Recipe recipe,
+    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult,
                                    @RequestParam("image") MultipartFile multipartFile, Model model) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("recipe", recipe);
+            return "/recipe/signup";
+        }
+
         recipeService.save(recipe, multipartFile);
+
+        return index(model);
+    }
+
+    @RequestMapping("/edit/{id}")
+    public String edit(@PathVariable(name = "id") long id, Model model) {
+        Recipe recipe = recipeService.get(id);
+        model.addAttribute("recipe", recipe);
+
+        return "/recipe/edit";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String delete(@PathVariable(name = "id") long id, Model model) {
+        recipeService.delete(id);
 
         return index(model);
     }
