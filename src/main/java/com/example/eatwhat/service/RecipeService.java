@@ -32,7 +32,7 @@ public class RecipeService {
     Recipe savedRecipe = repo.save(recipe);
     
     String uploadDir = "recipe-photos/" + savedRecipe.getId();
-    
+    System.out.println(savedRecipe.getId());
     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
   }
   
