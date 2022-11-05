@@ -23,5 +23,8 @@ public class RecipeCategory {
   private long id;
 
   private String catDescription;
-
+  
+  public RecipeCategory(String catDescription) {
+    this.catDescription = catDescription;
+  }
 }

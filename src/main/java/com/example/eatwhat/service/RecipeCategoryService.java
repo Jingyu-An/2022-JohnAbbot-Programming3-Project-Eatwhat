@@ -36,5 +36,8 @@ public class RecipeCategoryService {
   public void delete(long id) {
     repo.deleteById(id);
   }
-
+  
+  public void initCatList(String category) {
+    repo.save(new RecipeCategory(category));
+  }
 }
