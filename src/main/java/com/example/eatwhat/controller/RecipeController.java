@@ -8,6 +8,7 @@ import com.example.eatwhat.service.RecipeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,7 +98,22 @@ public class RecipeController {
 
     @RequestMapping(value = "/saveRecipe", method = RequestMethod.POST)
     public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe) {
-        System.out.println("new recipe : " + recipe);
+
+        // add logged user to the recipe
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            User loggedUser = ((User) principal);
+            recipe.setUser(loggedUser);
+            System.out.println("new recipe : " + recipe);
+        } else {
+            System.out.println("principal object: " + principal);
+        }
+
+
+
+
+
+
         System.out.println("saving a new recipe");
         recipeService.save(recipe);
         return "redirect:/"; //TODO redirect to list page
