@@ -35,6 +35,10 @@ public class UserService implements UserDetailsService {
     repo.deleteById(id);
   }
   
+  public void addAdmin(String password) {
+    repo.save(new User(9999, "admin", "admin@eatwhat.com", password, 0, "ROLE_ADMIN,ROLE_USER"));
+  }
+  
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     
