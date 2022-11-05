@@ -23,21 +23,9 @@ public class RecipeService {
   public List<Recipe> listAll() {
     return repo.findAll();
   }
-  public List<Recipe> listByUser(Long userId){return repo.findAllByRecipeIn(userId);}
-  public void save(Recipe recipe, @RequestParam("image") MultipartFile multipartFile) throws IOException {
-    // For image save
-    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-    recipe.setPhotos(fileName);
   
-    if (fileName.isEmpty()) {
-      fileName = "init";
-    }
-    
-    Recipe savedRecipe = repo.save(recipe);
-    
-    String uploadDir = "recipe-photos/" + savedRecipe.getId();
-    System.out.println(savedRecipe.getId());
-    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+  public void save(Recipe recipe)  {
+    repo.save(recipe);
   }
   
   public Recipe get(long id) {

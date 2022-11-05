@@ -31,6 +31,7 @@ public class UserController {
     public String index(Model model){
 
         List<Recipe> listRecipes = recipeService.listAll();
+        System.out.println(listRecipes);
         model.addAttribute("listRecipes", listRecipes);
         return "/user/index";
     }

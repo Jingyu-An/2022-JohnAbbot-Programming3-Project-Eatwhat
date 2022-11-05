@@ -31,9 +31,9 @@ public class Recipe {
 
     private int recipePoint;
 
-    private int cookingTime;
+    private String cookingTime;
     
-    @Column(nullable = true, length = 64)
+    @Column(nullable = true)
     private String photos;
     
     @ManyToOne
