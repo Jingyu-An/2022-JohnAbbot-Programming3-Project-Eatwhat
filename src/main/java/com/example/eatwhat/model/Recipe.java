@@ -41,7 +41,7 @@ public class Recipe {
 
     @ManyToOne(targetEntity = RecipeCategory.class, cascade = CascadeType.ALL,fetch= FetchType.EAGER)
 //  @JoinColumn(name="category_id", nullable=false)
-    private RecipeCategory recipeCategory;
+    public RecipeCategory recipeCategory;
 
 
     @Transient
