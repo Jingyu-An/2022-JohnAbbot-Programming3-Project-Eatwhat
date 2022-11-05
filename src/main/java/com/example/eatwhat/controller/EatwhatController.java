@@ -3,6 +3,7 @@ package com.example.eatwhat.controller;
 import com.example.eatwhat.dao.UserRepository;
 import com.example.eatwhat.model.Recipe;
 import com.example.eatwhat.model.User;
+import com.example.eatwhat.service.RecipeCategoryService;
 import com.example.eatwhat.service.RecipeService;
 import com.example.eatwhat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,18 @@ import java.util.List;
 public class EatwhatController {
 
     private String loginErrorSite;
+    
+    @Autowired
+    RecipeCategoryService recipeCategoryService;
 
     private RequestCache requestCache = new HttpSessionRequestCache();
+    
     @GetMapping("/")
-    public String home(Model model) {
+    public String home() {
+        if (recipeCategoryService.getAll().size() == 0) {
+            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
+            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
+        }
         return "index";
     }
 
