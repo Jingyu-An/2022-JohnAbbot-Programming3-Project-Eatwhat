@@ -42,8 +42,7 @@ public class User implements UserDetails {
 
     private String auth;
     
-    public User(long id, String username, String userEmail, String userPassword, int userPoint, String auth) {
-        this.id = id;
+    public User(String username, String userEmail, String userPassword, int userPoint, String auth) {
         this.username = username;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
