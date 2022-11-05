@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${listUsers}" th:if="${user.id != 1}">
+        <tr th:each="user : ${listUsers}" th:if="${user.id != 9999}">
           <td th:text="${userStat.index}"></td>
           <td th:text="${user.id}"></td>
           <td th:text="${user.username}"></td>
