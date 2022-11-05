@@ -34,6 +34,9 @@ public class EatwhatController {
     
     @Autowired
     RecipeCategoryService recipeCategoryService;
+    
+    @Autowired
+    UserService userService;
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     
@@ -43,6 +46,14 @@ public class EatwhatController {
             List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
             catList.forEach(cat -> recipeCategoryService.initCatList(cat));
         }
+        
+        if (userService.listAll().size() == 0) {
+            System.out.println("Make Admin");
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode("admin");
+            userService.addAdmin(encodedPassword);
+        }
+        
         return "index";
     }
 
@@ -138,9 +149,6 @@ public class EatwhatController {
         }
         return "redirect:/"+site+"/signup";
     }
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/register")
     public String signUp(Model model){

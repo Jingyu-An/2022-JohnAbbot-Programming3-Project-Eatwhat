@@ -41,7 +41,15 @@ public class User implements UserDetails {
     private int userPoint;
 
     private String auth;
-
+    
+    public User(String username, String userEmail, String userPassword, int userPoint, String auth) {
+        this.username = username;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userPoint = userPoint;
+        this.auth = auth;
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();

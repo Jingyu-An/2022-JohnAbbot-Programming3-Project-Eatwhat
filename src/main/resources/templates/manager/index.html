@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-<html   xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-        layout:decorate="/manager/layout.html">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="/manager/layout.html">
+  <head>
     <title>Manager</title>
   </head>
-
+  
   <div layout:fragment="content">
-<!--    <form th:action="@{/logout}" method="post">-->
-<!--      <p>-->
-<!--        Welcome <span sec:authentication="name"></span> <br>-->
-<!--        Auth : <span sec:authentication="authorities"></span> <br>-->
-<!--      </p>-->
-<!--    </form>-->
     <div>
       <h1>
         List of User
@@ -44,49 +38,14 @@
         </tbody>
       </table>
     </div>
-
+    
     <div>
       <h1>
         List of Recipe
-        <a href="/recipe/register">
-          <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
-        </a>
       </h1>
     </div>
-
+    
     <div>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Photo</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Point</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="recipe : ${listRecipes}">
-                <td th:text="${recipe.id}"></td>
-                <td>
-                    <img th:src="@{${recipe.photosImagePath}}" class="card-img"/>
-                </td>
-                <td th:text="${recipe.recipeTitle}"></td>
-                <td th:text="${recipe.recipeDescription}"></td>
-                <td th:text="${recipe.point}"></td>
-<!--                <td th:text="${recipe.recipeDate}"></td>-->
-                <!--          <td>-->
-                <!--            <a th:href="@{'/edit_user/' + ${user.id}}">-->
-                <!--              <button type="button" class="btn btn-outline-primary">Edit</button>-->
-                <!--            </a>-->
-                <!--            <a th:href="@{'/delete_user/' + ${user.id}}">-->
-                <!--              <button type="button" class="btn btn-outline-primary">Delete</button>-->
-                <!--            </a>-->
-                <!--          </td>-->
-            </tr>
-            </tbody>
-        </table>
       <table class="table table-striped table-bordered">
         <thead class="thead-dark">
         <tr>
