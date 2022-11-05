@@ -49,8 +49,8 @@
                   <td th:text="${recipeStat.index}+1" class="align-middle"></td>
                   <td th:text="${recipe.user.username}" class="align-middle"></td>
                   <td>
-                    <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"
-                         style="width: 200px; height: auto"/>
+                    <img th:src="@{${recipe.photos}}" class="img-fluid rounded"
+                         style="width: 50px; height: auto"/>
                   </td>
                   <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
                   <td th:text="${recipe.recipeCategory.catDescription}" class="align-middle"></td>

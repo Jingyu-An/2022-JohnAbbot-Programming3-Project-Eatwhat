@@ -52,13 +52,13 @@ public class RecipeController {
     public String signUp(Model model) {
         Recipe recipe = new Recipe();
         model.addAttribute("recipe", recipe);
-        System.out.println("This is signup method");
-        return "/recipe/newRecipe";
+        recipeService.save(recipe);
+        System.out.println("recipe saved");
+        return "/recipe/signup";
     }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult,
-                       @RequestParam("image") MultipartFile multipartFile, Model model) throws IOException {
+    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
@@ -67,7 +67,7 @@ public class RecipeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         recipe.setUser(user);// insert user information
-        recipeService.save(recipe, multipartFile);
+        recipeService.save(recipe);
 
         return index(model);
     }
@@ -97,9 +97,9 @@ public class RecipeController {
 
     @RequestMapping(value = "/saveRecipe", method = RequestMethod.POST)
     public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe) {
-        System.out.println(recipe);
+        System.out.println("new recipe : " + recipe);
         System.out.println("saving a new recipe");
-       // recipeService.save(recipe, new MultipartFile); //TODO how save image in recipe?
+        recipeService.save(recipe);
         return "redirect:/"; //TODO redirect to list page
 
     }

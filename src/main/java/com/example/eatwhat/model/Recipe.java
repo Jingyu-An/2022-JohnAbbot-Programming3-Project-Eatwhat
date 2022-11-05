@@ -33,7 +33,7 @@ public class Recipe {
 
     private String cookingTime;
     
-    @Column(nullable = true, length = 64)
+    @Column(nullable = true)
     private String photos;
     
     @ManyToOne
