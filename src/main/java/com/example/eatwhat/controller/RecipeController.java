@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,6 +42,7 @@ public class RecipeController {
         List<Recipe> listRecipes = recipeService.listAll(); // Need to change with inner join
         model.addAttribute("listRecipes", listRecipes);
     }
+
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -97,9 +99,9 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/saveRecipe", method = RequestMethod.POST)
-    public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe) {
+    public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe, @ModelAttribute("recipeCat") RecipeCategory recipeCat) {
 
-        // add logged user to the recipe
+        // join logged user to the recipe
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
             User loggedUser = ((User) principal);
@@ -109,12 +111,10 @@ public class RecipeController {
             System.out.println("principal object: " + principal);
         }
 
-
-
-
-
-
-        System.out.println("saving a new recipe");
+        // join Recipe category to the recipe
+        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
+        recipe.setRecipeCategory(recipeCategories.get((int)recipeCat.getId()));
+        System.out.println("saving a new recipe in db");
         recipeService.save(recipe);
         return "redirect:/"; //TODO redirect to list page
 

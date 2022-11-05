@@ -44,8 +44,8 @@
         <input type="text" id="photos" name="photos" class="form-control" placeholder="photo url">
 
         <div class="form-group blu-margin">
-          <select class="form-control"  id="dropOperator">
-            <option value="0">select recipe cat</option>
+          <select class="form-control" id="dropOperator" name="id">
+            <option value="">select recipe cat</option>
             <option th:each="recipeCat : ${recipeCategories}" th:value="${recipeCat.id}" th:text="${recipeCat.catDescription}"></option>
           </select>
         </div>
