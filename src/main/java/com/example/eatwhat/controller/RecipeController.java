@@ -114,7 +114,11 @@ public class RecipeController {
         // join Recipe category to the recipe
         List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
         recipe.setRecipeCategory(recipeCategories.get((int)recipeCat.getId()));
-        System.out.println("saving a new recipe in db");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        recipe.setUser(user);
+        System.out.println("saving a new recipe in db : userid " + user.getId());
         recipeService.save(recipe);
         return "redirect:/"; //TODO redirect to list page
 

@@ -16,24 +16,30 @@ import java.util.List;
 @Service
 @Transactional
 public class RecipeService {
-  
-  @Autowired
-  private RecipeRepository repo;
-  
-  public List<Recipe> listAll() {
-    return repo.findAll();
-  }
-  
-  public void save(Recipe recipe)  {
-    repo.save(recipe);
-  }
-  
-  public Recipe get(long id) {
-    return repo.findById(id).get();
-  }
-  
-  public void delete(long id) {
-    repo.deleteById(id);
-  }
-  
+
+    @Autowired
+    private RecipeRepository repo;
+
+    public List<Recipe> listAll() {
+        return repo.findAll();
+    }
+
+    public List<Recipe> listByUserID(Long userId) {
+        System.out.println("================================================");
+        System.out.println("user ID = " + userId);
+        return repo.findAllByRecipeIn(userId);
+    }
+
+    public void save(Recipe recipe) {
+        repo.save(recipe);
+    }
+
+    public Recipe get(long id) {
+        return repo.findById(id).get();
+    }
+
+    public void delete(long id) {
+        repo.deleteById(id);
+    }
+
 }

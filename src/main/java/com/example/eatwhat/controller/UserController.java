@@ -5,6 +5,8 @@ import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.RecipeService;
 import com.example.eatwhat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +31,10 @@ public class UserController {
 
     @GetMapping({"", "/"})
     public String index(Model model){
-
-        List<Recipe> listRecipes = recipeService.listAll();
-        System.out.println(listRecipes);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        System.out.println("user id : " + user.getId());
+        List<Recipe> listRecipes = recipeService.listByUserID(user.getId());
         model.addAttribute("listRecipes", listRecipes);
         return "/user/index";
     }
