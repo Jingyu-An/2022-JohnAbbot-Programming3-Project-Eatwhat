@@ -33,16 +33,10 @@ public class RecipeController {
     @Autowired
     private RecipeCategoryService recipeCategoryService;
 
-//    @GetMapping({"", "/"})
-//    public String index(Model model) {
-//        return "sth" // TODO check it out
-//    }
-
     public void initList(Model model) {
         List<Recipe> listRecipes = recipeService.listAll(); // Need to change with inner join
         model.addAttribute("listRecipes", listRecipes);
     }
-
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -51,28 +45,30 @@ public class RecipeController {
         return "/recipe/index";
     }
 
-    @GetMapping("/signup")
-    public String signUp(Model model) {
-        Recipe recipe = new Recipe();
-        model.addAttribute("recipe", recipe);
-        recipeService.save(recipe);
-        System.out.println("recipe saved");
-        return "/recipe/signup";
-    }
-
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) throws IOException {
+    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat, BindingResult bindingResult, Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
             return "/recipe/index";
         }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         recipe.setUser(user);// insert user information
+
+        // join Recipe category to the recipe
+        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
+        recipeCategories.forEach(item -> {
+            if ((recipeCat.getId()) == (item.getId())) {
+                recipe.recipeCategory = item;
+            }
+        } );
+
+        System.out.println("saving a new recipe in db");
         recipeService.save(recipe);
 
-        return index(model);
+        return "redirect:/user";
     }
 
     @RequestMapping("/edit/{id}")
@@ -90,40 +86,14 @@ public class RecipeController {
         return index(model);
     }
 
-
     @GetMapping("/showCreateRecipe")
     public String showCreateRecipe(Model model) {
         List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
         model.addAttribute("recipeCategories", recipeCategories);
+        Recipe recipe = new Recipe();
+        System.out.println(recipe);
+        model.addAttribute("recipe", recipe);
         return "/recipe/newRecipe";
     }
-
-    @RequestMapping(value = "/saveRecipe", method = RequestMethod.POST)
-    public String saveNewRecipe(@ModelAttribute("newRecipe") Recipe recipe, @ModelAttribute("recipeCat") RecipeCategory recipeCat) {
-
-        // join logged user to the recipe
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof User) {
-            User loggedUser = ((User) principal);
-            recipe.setUser(loggedUser);
-            System.out.println("new recipe : " + recipe);
-        } else {
-            System.out.println("principal object: " + principal);
-        }
-
-        // join Recipe category to the recipe
-        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
-        recipeCategories.forEach(item -> {
-            if ((recipeCat.getId()) == (item.getId())) {
-                recipe.recipeCategory = item;
-            }
-        } );
-
-        System.out.println("saving a new recipe in db");
-        recipeService.save(recipe);
-        return "redirect:/"; //TODO redirect to list page
-
-    }
-
 }
 

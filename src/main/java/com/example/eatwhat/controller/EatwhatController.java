@@ -31,7 +31,7 @@ import java.util.List;
 public class EatwhatController {
 
     private String loginErrorSite;
-    
+
     @Autowired
     RecipeCategoryService recipeCategoryService;
     
@@ -113,16 +113,6 @@ public class EatwhatController {
         }
         return "recipe.html";
     }
-
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String loginPage(HttpServletRequest request, @RequestParam String site, Model model) {
-//        String referrer = request.getHeader("Referer");
-//        request.getSession().setAttribute("prevPage", referrer);
-//        model.addAttribute("site", site);
-//        loginErrorSite = site;
-//        return "loginForm";
-//    }
-
 
     @PostMapping("/login")
     public String loginPost(@RequestParam String site, Model model) {

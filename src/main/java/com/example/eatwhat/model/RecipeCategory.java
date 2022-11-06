@@ -13,8 +13,6 @@ import java.util.Set;
 @Table(name = "eatwhat_recipe_category")
 @Data
 @NoArgsConstructor
-@Getter
-@Setter
 public class RecipeCategory {
   
   @Id

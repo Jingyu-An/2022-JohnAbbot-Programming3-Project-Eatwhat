@@ -28,25 +28,26 @@
   <body class="text-center">
     
     <div class="login-content" >
-      <form class="form-signin" th:action="@{/recipe/saveRecipe}" th:object="${newRecipe}" method="post" >
+      <form class="form-signin" th:action="@{/recipe/register/save}" th:object="${recipe}" method="post" >
         <h1 class="h3 mb-3 font-weight-normal"> Create a new recipe </h1>
 
         <label for="recipeTitle" class="sr-only">recipe Title</label>
-        <input type="text"  id="recipeTitle" name="recipeTitle" class="form-control" placeholder="recipe Title" >
+        <input type="text"  id="recipeTitle" th:field="*{recipeTitle}" class="form-control" placeholder="recipe Title" >
 
         <label for="recipeDescription" class="sr-only">recipe Description</label>
-        <input type="textarea" id="recipeDescription" name="recipeDescription" class="form-control" placeholder="recipe Description" >
+        <input type="textarea" id="recipeDescription" th:field="*{recipeDescription}" class="form-control" placeholder="recipe Description" >
 
         <label for="cookingTime" class="sr-only">cooking Time</label>
-        <input type="text" id="cookingTime" name="cookingTime" class="form-control" placeholder="cooking Time">
+        <input type="text" id="cookingTime" th:field="*{cookingTime}" class="form-control" placeholder="cooking Time">
 
         <label for="photos" class="sr-only">photo url</label>
-        <input type="text" id="photos" name="photos" class="form-control" placeholder="photo url">
+        <input type="text" id="photos" th:field="*{photos}" class="form-control" placeholder="photo url">
 
         <div class="form-group blu-margin">
-          <select class="form-control" id="dropOperator" name="id">
+          <select class="form-control" id="dropOperator" th:field="*{recipeCategory}">
             <option value="">select recipe cat</option>
-            <option th:each="recipeCat : ${recipeCategories}" th:value="${recipeCat.id}" th:text="${recipeCat.catDescription}"></option>
+            <option th:each="recipeCat : ${recipeCategories}" th:value="${recipeCat.id}"
+                    th:text="${recipeCat.catDescription}"></option>
           </select>
         </div>
 

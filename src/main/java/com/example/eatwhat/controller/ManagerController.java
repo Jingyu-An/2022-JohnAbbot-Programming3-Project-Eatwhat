@@ -37,7 +37,4 @@ public class ManagerController {
         initList(model);
         return "/manager/index";
     }
-
-
-
 }

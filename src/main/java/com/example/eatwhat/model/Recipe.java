@@ -15,8 +15,6 @@ import java.util.Date;
 @Table(name = "eatwhat_recipe")
 @Data
 @NoArgsConstructor
-@Getter
-@Setter
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +37,8 @@ public class Recipe {
     @ManyToOne
     private User user;
 
-    @ManyToOne(targetEntity = RecipeCategory.class, cascade = CascadeType.ALL,fetch= FetchType.EAGER)
+    @ManyToOne
+//    @ManyToOne(targetEntity = RecipeCategory.class, cascade = CascadeType.ALL,fetch= FetchType.EAGER)
 //  @JoinColumn(name="category_id", nullable=false)
     public RecipeCategory recipeCategory;
 
