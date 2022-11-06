@@ -99,7 +99,10 @@
         <div class="card-body">
           <div>
             <a th:href="@{'/user/delete/' + ${user.getId()}}">
-              <button type="button" class="btn btn-outline-primary">Delete</button>
+              <button type="button" class="btn btn-outline-primary">Delete Account</button>
+            </a>
+            <a th:href="@{'/user/edit/' + ${user.getId()}}">
+              <button type="button" class="btn btn-outline-primary">Edit User Info</button>
             </a>
           </div>
         </div>
