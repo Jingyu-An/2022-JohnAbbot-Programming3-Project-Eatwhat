@@ -38,7 +38,10 @@ body {
     text-align: right;
 }
 
-
+.error {
+    color: red;
+    font-style: italic;
+}
 
 
 @media (max-width: 768px) {
