@@ -1,10 +1,7 @@
 package com.example.eatwhat.controller;
 
-import com.example.eatwhat.dao.UserRepository;
-import com.example.eatwhat.model.Recipe;
 import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.RecipeCategoryService;
-import com.example.eatwhat.service.RecipeService;
 import com.example.eatwhat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,12 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -42,10 +36,10 @@ public class EatwhatController {
     
     @GetMapping("/")
     public String home() {
-//        if (recipeCategoryService.getAll().size() == 0) {
-//            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
-//            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
-//        }
+        if (recipeCategoryService.getAll().size() == 0) {
+            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
+            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
+        }
         
         if (userService.listAll().size() == 0) {
             System.out.println("Make Admin");
@@ -121,7 +115,7 @@ public class EatwhatController {
         return "redirect:/" + site;
     }
 
-    @GetMapping("/login-error")
+    @GetMapping("/login/error")
     public String loginError(Model model) {
         System.out.println("Login ERROR site : " + loginErrorSite);
         model.addAttribute("loginError", true);
@@ -175,8 +169,8 @@ public class EatwhatController {
     }
 
 
-    @GetMapping("/access-denied")
+    @GetMapping("/login/access-denied")
     public String accessDenied(){
-        return "/accessDenied";
+        return "/access_denied";
     }
 }

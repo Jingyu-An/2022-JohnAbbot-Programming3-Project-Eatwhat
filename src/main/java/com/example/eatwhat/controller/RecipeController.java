@@ -8,18 +8,15 @@ import com.example.eatwhat.service.RecipeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 //import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -81,7 +78,7 @@ public class RecipeController {
         return "/recipe/edit";
     }
 
-    @RequestMapping(value = "/saveEditedRecipe", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit/save", method = RequestMethod.POST)
     public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -101,14 +98,14 @@ public class RecipeController {
         return "redirect:/user";
     }
 
-    @GetMapping("/showCreateRecipe")
+    @GetMapping("/register/signup")
     public String showCreateRecipe(Model model) {
         List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
         model.addAttribute("recipeCategories", recipeCategories);
         Recipe recipe = new Recipe();
         System.out.println(recipe);
         model.addAttribute("recipe", recipe);
-        return "/recipe/newRecipe";
+        return "recipe/signup";
     }
 }
 
