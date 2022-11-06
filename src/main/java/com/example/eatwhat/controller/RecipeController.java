@@ -92,7 +92,7 @@ public class RecipeController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable(name = "id") long id, Model model) {
+    public String delete(@PathVariable(name = "id") long id) {
         recipeService.delete(id);
 
         return "redirect:/user";

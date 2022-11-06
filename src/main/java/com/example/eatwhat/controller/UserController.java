@@ -11,10 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +34,17 @@ public class UserController {
         List<Recipe> listRecipes = recipeService.listAllByUser(user.getId());
 
         model.addAttribute("listRecipes", listRecipes);
+        model.addAttribute("user", user);
+
         return "/user/index";
+    }
+    @RequestMapping("/delete/{id}")
+    public String delete(@PathVariable(name = "id") long id, Model model) {
+        if (id == 1) {
+            return "redirect:/user";
+        }
+
+        userService.delete(id);
+        return "redirect:/logout";
     }
 }
