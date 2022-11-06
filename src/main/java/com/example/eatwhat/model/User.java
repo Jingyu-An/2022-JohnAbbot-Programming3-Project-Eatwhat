@@ -37,9 +37,12 @@ public class User implements UserDetails {
     @NotBlank(message = "confirmPassword must not be empty")
     private String confirmPassword;
 
+
+
+//    @NotBlank(message = "Please fill out the field")
+
     @Transient // db does not save
-    @NotBlank(message = "Please fill out the field")
-    @Size(min = 8, max = 20, message = "Please enter between 10 to 20")
+    @Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "Please enter your password within 8 to 12, Only alphanumeric characters are allowed")
     private String tempPassword;
 
     @Column(name="password", length =500)
