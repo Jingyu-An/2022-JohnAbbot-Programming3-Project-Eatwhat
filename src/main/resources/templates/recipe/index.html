@@ -35,54 +35,58 @@
               </a>
             </div>
             <div>
-              <table class="table table-hover table-striped table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                  <th>ID</th>
-                  <th>Photo</th>
-                  <th>Title</th>
-<!--                  <th>Date</th>-->
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="recipe : ${userRecipeList}">
-                  <td th:text="${recipe.id}" class="align-middle"></td>
-                  <td>
-                    <img th:src="@{${recipe.photosImagePath}}" class="img-fluid rounded"
-                         style="width: 200px; height: auto"/>
-                  </td>
-                  <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
-                  <td th:text="${recipe.cookingTime}" class="align-middle"></td>
-                  <td th:text="${recipe.recipeCategory}" class="align-middle"></td>
-                  <td class="align-middle">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" th:href="'#recipe'+${recipe.id}">
-                      Detail
-                    </button>
-                  </td>
-                  <!-- Modal -->
-                  <div class="modal fade" th:id="'recipe'+${recipe.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"
-                  style="backdrop-filter: blur(10px)">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle" th:text="${recipe.recipeTitle}"></h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                <table class="table table-hover table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Number</th>
+                        <th>Author</th>
+                        <th>Photo</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Detail</th>
+                       
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="recipe : ${listRecipes}">
+                        <td th:text="${recipeStat.index}+1" class="align-middle"></td>
+                        <td th:text="${recipe.user.username}" class="align-middle"></td>
+                        <td>
+                            <img th:src="@{${recipe.photos}}" class="img-fluid rounded"
+                                 style="width: 50px; height: auto"/>
+                        </td>
+                        <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
+                        <td th:text="${recipe.recipeCategory.catDescription}" class="align-middle"></td>
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" th:href="'#recipe'+${recipe.id}">
+                                Detail
+                            </button>
+                        </td>
+
+                        <!-- Modal -->
+                        <div class="modal fade" th:id="'recipe'+${recipe.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLongTitle" aria-hidden="true"
+                             style="backdrop-filter: blur(10px)">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle" th:text="${recipe.recipeTitle}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" th:text="${recipe.recipeDescription}">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body" th:text="${recipe.recipeDescription}">
-                          ...
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </tr>
-                </tbody>
-              </table>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
           </div>
         </div>
