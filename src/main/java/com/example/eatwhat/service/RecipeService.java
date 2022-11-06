@@ -23,7 +23,7 @@ public class RecipeService {
   public List<Recipe> listAll() {
     return repo.findAll();
   }
-//  public List<Recipe> listAllByUser(Long id) {return repo.findAllByRecipeIn(id);}
+  public List<Recipe> listAllByUser(Long userId) {return repo.findAllByRecipeIn(userId);}
   
   public void save(Recipe recipe)  {
     repo.save(recipe);
