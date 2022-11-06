@@ -164,14 +164,15 @@ public class EatwhatController {
             return "/signup";
         }
 
-        if(!user.getUserPassword().equals(user.getConfirmPassword())){
+        if(!user.getTempPassword().equals(user.getConfirmPassword())){
             bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "Please match your password");
             return "/signup";
         }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+        String encodedPassword = passwordEncoder.encode(user.getTempPassword());
         user.setUserPassword(encodedPassword);
+
 
         System.out.println(user.getAuth());
         if(user.getAuth().equals("Admin")){

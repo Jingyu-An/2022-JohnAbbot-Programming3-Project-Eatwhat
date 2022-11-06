@@ -8,9 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,23 +32,33 @@ public class User implements UserDetails {
     @NotBlank(message = "Email must not be empty")
     private String userEmail;
 
+
+    @Transient // db does not save
     @NotBlank(message = "confirmPassword must not be empty")
     private String confirmPassword;
 
-    @NotBlank
+    @Transient // db does not save
+    @NotBlank(message = "Please fill out the field")
+    @Size(min = 8, max = 20, message = "Please enter between 10 to 20")
+    private String tempPassword;
+
+    @Column(name="password", length =500)
     private String userPassword;
+
+
 
     private int userPoint;
 
     private String auth;
 
-    public User(String username, String userEmail, String userPassword, String confirmPassword, int userPoint, String auth) {
+    public User(String username, String userEmail,String userPassword, String confirmPassword, int userPoint, String auth,String tempPassword) {
         this.username = username;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.confirmPassword = confirmPassword;
         this.userPoint = userPoint;
         this.auth = auth;
+        this.tempPassword   = tempPassword;
     }
 
     @Override

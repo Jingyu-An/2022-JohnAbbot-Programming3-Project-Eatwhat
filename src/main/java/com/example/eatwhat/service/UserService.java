@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
   }
   
   public void addAdmin(String password) {
-    repo.save(new User( "admin", "admin@eatwhat.com", password,password, 0, "ROLE_ADMIN,ROLE_USER"));
+    repo.save(new User( "admin", "admin@eatwhat.com",password,password, 0, "ROLE_ADMIN,ROLE_USER","password"));
   }
   
   @Override
