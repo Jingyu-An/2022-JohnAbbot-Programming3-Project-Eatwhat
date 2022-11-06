@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -18,27 +19,30 @@ import java.util.Date;
 @Setter
 public class Recipe {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Name("recipe_id")
     private long id;
 
+
     private String recipeTitle;
+
 
     private String recipeDescription;
 
     private int recipePoint;
 
-    private int cookingTime;
+    private String cookingTime;
     
-    @Column(nullable = true, length = 64)
+    @Column(nullable = true)
     private String photos;
-    
-    @OneToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(targetEntity = RecipeCategory.class, cascade = CascadeType.ALL,fetch= FetchType.EAGER)
-//  @JoinColumn(name="category_id", nullable=false)
-    private RecipeCategory recipeCategory;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="category_id")
+    public RecipeCategory recipeCategory;
 
 
     @Transient

@@ -3,6 +3,7 @@ package com.example.eatwhat.controller;
 import com.example.eatwhat.dao.UserRepository;
 import com.example.eatwhat.model.Recipe;
 import com.example.eatwhat.model.User;
+import com.example.eatwhat.service.RecipeCategoryService;
 import com.example.eatwhat.service.RecipeService;
 import com.example.eatwhat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,15 +31,35 @@ import java.util.List;
 public class EatwhatController {
 
     private String loginErrorSite;
+    
+    @Autowired
+    RecipeCategoryService recipeCategoryService;
+    
+    @Autowired
+    UserService userService;
 
     private RequestCache requestCache = new HttpSessionRequestCache();
+    
     @GetMapping("/")
-    public String home(Model model) {
+    public String home() {
+//        if (recipeCategoryService.getAll().size() == 0) {
+//            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
+//            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
+//        }
+        
+        if (userService.listAll().size() == 0) {
+            System.out.println("Make Admin");
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode("admin");
+            userService.addAdmin(encodedPassword);
+        }
+        
         return "index";
     }
 
     @GetMapping("/home")
     public String recipeBoard(@RequestParam String site, Model model) {
+        System.out.println("HOME Recipe Board");
         model.addAttribute("site", site);
         return "redirect:/" + site;
     }
@@ -109,7 +131,6 @@ public class EatwhatController {
         return "redirect:/" + site;
     }
 
-
     @GetMapping("/login-error")
     public String loginError(Model model) {
         System.out.println("Login ERROR site : " + loginErrorSite);
@@ -118,11 +139,6 @@ public class EatwhatController {
         return "loginForm";
     }
 
-//    @GetMapping("/signup")
-//    public String signUp(@RequestParam String site) {
-//        System.out.println("signup");
-//        return "redirect:/" + site + "/signup";
-//    }
     @GetMapping("/signup")
     public String signUp(
             @RequestParam String site,
@@ -133,6 +149,41 @@ public class EatwhatController {
         }
         return "redirect:/"+site+"/signup";
     }
+
+    @GetMapping("/register")
+    public String signUp(Model model){
+        System.out.println("This is user signup method");
+        User user = new User();
+        model.addAttribute("user", user);
+
+//        List<String> roleList = Arrays.asList("User", "Admin");
+//        model.addAttribute("roleList", roleList);
+        return "/signup";
+    }
+    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "/signup";
+        }
+        
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+        user.setUserPassword(encodedPassword);
+
+        System.out.println(user.getAuth());
+        if(user.getAuth().equals("Admin")){
+            user.setAuth("ROLE_ADMIN,ROLE_USER");
+        }else{
+            user.setAuth("ROLE_USER");
+        }
+
+        userService.save(user);
+
+        return "redirect:/login?site=user";
+    }
+
 
     @GetMapping("/access-denied")
     public String accessDenied(){

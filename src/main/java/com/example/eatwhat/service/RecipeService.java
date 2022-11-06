@@ -24,16 +24,16 @@ public class RecipeService {
     return repo.findAll();
   }
   
-  public void save(Recipe recipe, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+  public void save(Recipe recipe)  {
     // For image save
-    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-    recipe.setPhotos(fileName);
+//    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//    recipe.setPhotos(fileName);
     
     Recipe savedRecipe = repo.save(recipe);
     
-    String uploadDir = "recipe-photos/" + savedRecipe.getId();
+//    String uploadDir = "recipe-photos/" + savedRecipe.getId();
     
-    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
   }
   
   public Recipe get(long id) {
