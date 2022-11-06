@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -26,14 +27,16 @@ public class Recipe {
     @Size(min = 5, max = 30, message = "Title between 5 to 30 characters")
     private String recipeTitle;
 
+    @Size(min = 5, max = 150, message = "Description between 5 to 150 characters")
     private String recipeDescription;
 
     private int recipePoint;
 
-    @NotBlank(message = "Must be not empty")
+    @NotBlank(message = "Cooking time needed")
     private String cookingTime;
     
-    @Column(nullable = true)
+    //@Column(nullable = true)
+    @URL(message = "URL format is necessary http://example.com")
     private String photos;
     
     @ManyToOne
