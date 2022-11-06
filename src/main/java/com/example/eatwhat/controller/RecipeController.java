@@ -43,11 +43,14 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat, BindingResult bindingResult, Model model) throws IOException {
+    public String save(@Valid @ModelAttribute("recipe") Recipe recipe,
+                       BindingResult bindingResult,
+                       @ModelAttribute("recipeCategories") RecipeCategory recipeCat,
+                       Model model) throws IOException {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
-            return "/recipe/index";
+            return "/recipe/newRecipe";
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

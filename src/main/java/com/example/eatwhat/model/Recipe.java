@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -21,14 +22,15 @@ public class Recipe {
     @Name("recipe_id")
     private long id;
 
-
+    @NotBlank(message = "Must be not empty")
+    @Size(min = 5, max = 30, message = "Title between 5 to 30 characters")
     private String recipeTitle;
-
 
     private String recipeDescription;
 
     private int recipePoint;
 
+    @NotBlank(message = "Must be not empty")
     private String cookingTime;
     
     @Column(nullable = true)

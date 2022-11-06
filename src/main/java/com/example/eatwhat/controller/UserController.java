@@ -38,6 +38,16 @@ public class UserController {
 
         return "/user/index";
     }
+
+
+    @RequestMapping("/edit/{id}")
+    public String edit(@PathVariable(name = "id") long id, Model model) {
+        User user = userService.get(id);
+        model.addAttribute("user", user);
+
+        return "/user/edit";
+    }
+
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") long id, Model model) {
         if (id == 1) {
