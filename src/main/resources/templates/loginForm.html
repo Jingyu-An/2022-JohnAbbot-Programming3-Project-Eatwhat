@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <title> Login </title>
   <link href="/css/bootstrap.css" rel="stylesheet">
-  
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -16,7 +16,7 @@
       -ms-user-select: none;
       user-select: none;
     }
-    
+
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -26,7 +26,7 @@
   <link href="/css/login.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
+
     <div class="login-content">
       <form class="form-signin" method="post" th:action="@{/login}">
         <h1 class="h3 mb-3 font-weight-normal"> Login </h1>
@@ -42,9 +42,10 @@
         <button class="btn btn-lg btn-primary btn-block" th:classappend="${site}" type="submit"> Login</button>
         <a th:if="${!site.equals('manager')} " class="btn btn-lg btn-secondary btn-block"
            href="/register"> Register </a>
-        
+
         <div class="link-site">
           <ul>
+            <li><a href="/"> HOME </a></li>
             <li><a href="/login?site=user"> USER</a></li>
             <li><a href="/login?site=manager"> MANAGER</a></li>
           </ul>

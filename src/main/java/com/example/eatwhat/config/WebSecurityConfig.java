@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .addFilterAt(filter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception->{
-                    exception.accessDeniedPage("/access-denied");
+                    exception.accessDeniedPage("/login/access-denied");
                 })
                 .authorizeRequests(config->{
                     config

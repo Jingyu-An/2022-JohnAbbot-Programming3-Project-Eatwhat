@@ -30,7 +30,7 @@
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="/recipe/showCreateRecipe" sec:authorize="authenticated">
+              <a href="/recipe/showCreateRecipe" sec:authorize="isAuthenticated()">
                 <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
               </a>
             </div>

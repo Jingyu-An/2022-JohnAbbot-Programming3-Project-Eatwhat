@@ -1,11 +1,8 @@
 package com.example.eatwhat.model;
 
-import com.example.eatwhat.dao.UserRepository;
 import jdk.jfr.Name;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,13 +26,16 @@ public class User implements UserDetails {
     @Name("user_id")
     private long id;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "User name must not be empty")
+    @Size(min = 3, max = 10, message = "User name must be between 3 and 10 characters")
     private String username;
 
-    @Email
-    @NotBlank
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email must not be empty")
     private String userEmail;
+
+    @NotBlank(message = "confirmPassword must not be empty")
+    private String confirmPassword;
 
     @NotBlank
     private String userPassword;
@@ -43,15 +43,16 @@ public class User implements UserDetails {
     private int userPoint;
 
     private String auth;
-    
-    public User(String username, String userEmail, String userPassword, int userPoint, String auth) {
+
+    public User(String username, String userEmail, String userPassword, String confirmPassword, int userPoint, String auth) {
         this.username = username;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+        this.confirmPassword = confirmPassword;
         this.userPoint = userPoint;
         this.auth = auth;
     }
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
