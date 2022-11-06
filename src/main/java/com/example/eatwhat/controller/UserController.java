@@ -34,7 +34,10 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         List<Recipe> listRecipes = recipeService.listAllByUser(user.getId());
+        System.out.println("--------------------------------");
+        System.out.println(user.getId());
         System.out.println(listRecipes);
+        System.out.println("--------------------------------");
         model.addAttribute("listRecipes", listRecipes);
         return "/user/index";
     }
