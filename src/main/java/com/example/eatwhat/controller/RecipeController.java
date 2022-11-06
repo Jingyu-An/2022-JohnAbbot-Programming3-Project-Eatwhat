@@ -98,7 +98,7 @@ public class RecipeController {
     public String delete(@PathVariable(name = "id") long id, Model model) {
         recipeService.delete(id);
 
-        return index(model);
+        return "redirect:/user";
     }
 
     @GetMapping("/showCreateRecipe")
