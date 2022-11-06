@@ -78,7 +78,7 @@ public class RecipeController {
         return "/recipe/edit";
     }
 
-    @RequestMapping(value = "/edit/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveEditedRecipe", method = RequestMethod.POST)
     public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -98,14 +98,14 @@ public class RecipeController {
         return "redirect:/user";
     }
 
-    @GetMapping("/register/signup")
+    @GetMapping("/showCreateRecipe")
     public String showCreateRecipe(Model model) {
         List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
         model.addAttribute("recipeCategories", recipeCategories);
         Recipe recipe = new Recipe();
         System.out.println(recipe);
         model.addAttribute("recipe", recipe);
-        return "recipe/signup";
+        return "/recipe/newRecipe";
     }
 }
 
