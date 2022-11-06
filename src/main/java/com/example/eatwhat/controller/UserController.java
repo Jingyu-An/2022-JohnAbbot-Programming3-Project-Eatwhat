@@ -73,8 +73,6 @@ public class UserController {
         String encodedPassword = passwordEncoder.encode(user.getTempPassword());
         user.setUserPassword(encodedPassword);
 
-
-        System.out.println(user.getAuth());
         if(user.getAuth().equals("Admin")){
             user.setAuth("ROLE_ADMIN,ROLE_USER");
         }else{

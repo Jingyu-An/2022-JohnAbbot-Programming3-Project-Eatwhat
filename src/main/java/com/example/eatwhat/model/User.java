@@ -34,7 +34,6 @@ public class User implements UserDetails {
 
 
     @Transient // db does not save
-    @NotBlank(message = "confirmPassword must not be empty")
     private String confirmPassword;
 
 
