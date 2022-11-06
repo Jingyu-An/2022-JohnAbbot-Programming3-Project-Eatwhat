@@ -92,7 +92,7 @@ public class EatwhatController {
 
     private String estimateSite(String referer) {
         if(referer == null)
-            return "study.html";
+            return "index.html";
         try {
             URL url = new URL(referer);
             String path = url.getPath();

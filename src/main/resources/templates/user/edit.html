@@ -17,14 +17,14 @@
         <div class="col-md-12 order-md-1">
           <h4 class="mb-3"> Register User </h4>
           <form class="needs-validation" novalidate method="post"
-                th:action="@{/register/save}" th:object="${user}"
+                th:action="@{/user/edit/save}" th:object="${user}"
                 enctype="multipart/form-data">
             
             <div class="m-3">
               <div class="form-group row">
                 <label class="col-4 col-form-label">User Name(ID): </label>
                 <div class="col-8">
-                  <input type="text" th:field="*{username}" class="form-control"/>
+                  <input type="text" th:field="*{username}" class="form-control" readonly/>
                   <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                         class="error"></span>
                 </div>
