@@ -42,10 +42,10 @@ public class EatwhatController {
     
     @GetMapping("/")
     public String home() {
-        if (recipeCategoryService.getAll().size() == 0) {
-            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
-            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
-        }
+//        if (recipeCategoryService.getAll().size() == 0) {
+//            List<String> catList = Arrays.asList("Italy", "France", "Korea", "Japan", "China", "Mexico");
+//            catList.forEach(cat -> recipeCategoryService.initCatList(cat));
+//        }
         
         if (userService.listAll().size() == 0) {
             System.out.println("Make Admin");

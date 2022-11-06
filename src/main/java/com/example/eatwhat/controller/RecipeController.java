@@ -76,7 +76,22 @@ public class RecipeController {
         Recipe recipe = recipeService.get(id);
         model.addAttribute("recipe", recipe);
 
+        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
+        model.addAttribute("recipeCategories", recipeCategories);
         return "/recipe/edit";
+    }
+
+    @RequestMapping(value = "/saveEditedRecipe", method = RequestMethod.POST)
+    public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        recipe.setUser(user);// insert user information
+
+        System.out.println("saving modified recipe in db : " + recipe);
+        recipeService.save(recipe);
+
+        return "redirect:/user";
     }
 
     @RequestMapping("/delete/{id}")
