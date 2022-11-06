@@ -1,5 +1,6 @@
 package com.example.eatwhat.controller;
 
+import com.example.eatwhat.dao.UserRepository;
 import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.RecipeCategoryService;
 import com.example.eatwhat.service.UserService;
@@ -20,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class EatwhatController {
@@ -31,6 +33,9 @@ public class EatwhatController {
     
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     
@@ -151,7 +156,19 @@ public class EatwhatController {
             model.addAttribute("user", user);
             return "/signup";
         }
-        
+
+        //for preventing duplicate id
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUserId(user.getUsername()));
+        if(optionalUser.isPresent()){
+            bindingResult.rejectValue("username", "error.username", "You cannot use this username!, It's already used");
+            return "/signup";
+        }
+
+        if(!user.getUserPassword().equals(user.getConfirmPassword())){
+            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "Please match your password");
+            return "/signup";
+        }
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodedPassword);
