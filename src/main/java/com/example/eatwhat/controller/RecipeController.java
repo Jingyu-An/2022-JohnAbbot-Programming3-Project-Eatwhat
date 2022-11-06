@@ -63,7 +63,7 @@ public class RecipeController {
             if ((recipeCat.getId()) == (item.getId())) {
                 recipe.recipeCategory = item;
             }
-        } );
+        });
 
         System.out.println("saving a new recipe in db");
         recipeService.save(recipe);
@@ -82,7 +82,19 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/saveEditedRecipe", method = RequestMethod.POST)
-    public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe, @ModelAttribute("recipeCategories") RecipeCategory recipeCat) {
+    public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe,
+                                   @ModelAttribute("recipeCategories") RecipeCategory recipeCat,
+                                   BindingResult bindingResult,
+                                   Model model)  throws IOException
+    {
+        System.out.println("before throws for errors");
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("recipe", recipe);
+            System.out.println("after throws for errors");
+
+            return "/recipe/edit";
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();

@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-4 col-form-label">Title: </label>
+                        <label class="col-4 col-form-label">Recipe Title: </label>
                         <div class="col-8">
                             <input type="text" th:field="*{recipeTitle}" class="form-control"/>
                             <span th:if="${#fields.hasErrors('recipeTitle')}" th:errors="*{recipeTitle}"
@@ -52,7 +52,7 @@
                         <label class="col-4 col-form-label">Cooking Time: </label>
                         <div class="col-8">
                             <input type="text" th:field="*{cookingTime}" class="form-control"/>
-                            <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}"
+                            <span th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}"
                                   class="error"></span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <label class="col-4 col-form-label">Photo path: </label>
                         <div class="col-8">
                             <input type="text" th:field="*{photos}" class="form-control"/>
-                            <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}"
+                            <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}"
                                   class="error"></span>
                         </div>
                     </div>

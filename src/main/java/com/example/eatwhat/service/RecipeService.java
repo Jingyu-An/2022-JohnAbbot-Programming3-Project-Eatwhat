@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class RecipeService {
   
   @Autowired
