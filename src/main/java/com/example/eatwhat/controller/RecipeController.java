@@ -90,10 +90,12 @@ public class RecipeController {
                                    Model model)  throws IOException
     {
         System.out.println("before throws for errors");
+        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
             System.out.println("after throws for errors");
+            model.addAttribute("recipeCategories", recipeCategories);
 
             return "/recipe/edit";
         }
