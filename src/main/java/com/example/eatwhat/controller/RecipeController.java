@@ -50,6 +50,7 @@ public class RecipeController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
+            model.addAttribute("recipeCategories", recipeCategories);
             return "/recipe/newRecipe";
         }
 
@@ -82,9 +83,9 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/saveEditedRecipe", method = RequestMethod.POST)
-    public String saveEditedRecipe(@ModelAttribute("recipe") Recipe recipe,
-                                   @ModelAttribute("recipeCategories") RecipeCategory recipeCat,
+    public String saveEditedRecipe(@Valid @ModelAttribute("recipe") Recipe recipe,
                                    BindingResult bindingResult,
+                                   @ModelAttribute("recipeCategories") RecipeCategory recipeCat,
                                    Model model)  throws IOException
     {
         System.out.println("before throws for errors");
