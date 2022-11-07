@@ -31,30 +31,30 @@
     <form class="form-signin" th:action="@{/recipe/register/save}" th:object="${recipe}" method="post">
         <h1 class="h3 mb-3 font-weight-normal"> Create a new recipe </h1>
 
-        <label for="recipeTitle" class="sr-only">recipe Title</label>
+        <label for="recipeTitle" class="sr-only">Recipe Title</label>
         <input type="text" id="recipeTitle" th:field="*{recipeTitle}" class="form-control" placeholder="recipe Title">
         <span th:if="${#fields.hasErrors('recipeTitle')}" th:errors="*{recipeTitle}" class="error"></span>
         <br>
 
-        <label for="recipeDescription" class="sr-only">recipe Description</label>
+        <label for="recipeDescription" class="sr-only">Recipe Description</label>
         <textarea rows="5" cols="25" id="recipeDescription" th:field="*{recipeDescription}" class="form-control"
                   placeholder="recipe Description"></textarea>
         <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}" class="error"></span>
         <br>
 
-        <label for="cookingTime" class="sr-only">cooking Time</label>
+        <label for="cookingTime" class="sr-only">Cooking Time</label>
         <input type="text" id="cookingTime" th:field="*{cookingTime}" class="form-control" placeholder="cooking Time">
         <span th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}" class="error"></span>
         <br>
 
-        <label for="photos" class="sr-only">photo url</label>
+        <label for="photos" class="sr-only">Photo URL</label>
         <input type="text" id="photos" th:field="*{photos}" class="form-control" placeholder="photo url">
         <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}" class="error"></span>
         <br>
 
         <div class="form-group blu-margin">
             <select class="form-control" id="dropOperator" th:field="*{recipeCategory}">
-                <option value="">select recipe cat</option>
+                <option value="">select recipe category</option>
                 <option th:each="recipeCat : ${recipeCategories}" th:value="${recipeCat.id}"
                         th:text="${recipeCat.catDescription}"></option>
             </select>
