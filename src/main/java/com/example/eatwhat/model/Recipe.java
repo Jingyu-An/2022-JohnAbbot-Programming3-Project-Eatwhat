@@ -23,8 +23,8 @@ public class Recipe {
     @Name("recipe_id")
     private long id;
 
-    @NotBlank(message = "Must be not empty")
-    @Size(min = 5, max = 30, message = "Title between 5 to 30 characters")
+
+    @Size(min = 2, max = 30, message = "Title between 2 to 30 characters")
     private String recipeTitle;
 
     @Size(min = 5, max = 150, message = "Description between 5 to 150 characters")
@@ -37,6 +37,7 @@ public class Recipe {
     
     //@Column(nullable = true)
     @URL(message = "URL format is necessary http://example.com")
+    @NotBlank(message = "URL format is necessary http://example.com")
     private String photos;
     
     @ManyToOne
