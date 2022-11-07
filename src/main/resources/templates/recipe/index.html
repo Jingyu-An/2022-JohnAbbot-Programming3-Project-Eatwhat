@@ -28,6 +28,12 @@
           <div class="card-header">
             <h4 class="my-0 font-weight-normal"> List of Recipe </h4>
           </div>
+            <!--            for keyword search recipe-->
+            <form novalidate th:action="@{/recipe/list}">
+                Search: <input type="text" name="keyword" id="keyword" size="50"  alt ="" th:value="${keyword}" required />
+                <input type="submit" value="Search" />
+            </form>
+
           <div class="card-body">
             <div class="text-right">
               <a href="/recipe/showCreateRecipe" sec:authorize="isAuthenticated()">
