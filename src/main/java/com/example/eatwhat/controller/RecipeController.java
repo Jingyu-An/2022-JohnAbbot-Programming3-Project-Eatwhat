@@ -7,6 +7,7 @@ import com.example.eatwhat.service.RecipeCategoryService;
 import com.example.eatwhat.service.RecipeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,14 @@ public class RecipeController {
         model.addAttribute("listRecipes", listRecipes);
     }
 
+    //recipe Search list
+    @RequestMapping("/list")
+    public String searchList(Model model, @Param("keyword") String keyword) {
+        List<Recipe> listRecipes = recipeService.listAllByKeyword(keyword);
+        model.addAttribute("listRecipes", listRecipes);
+        model.addAttribute("keyword", keyword);
+        return "/recipe/index";
+    }
     @GetMapping({"", "/"})
     public String index(Model model) {
 
