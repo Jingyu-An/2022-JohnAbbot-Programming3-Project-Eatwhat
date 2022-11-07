@@ -25,29 +25,29 @@
 </style>
 <link href="/css/login.css" rel="stylesheet">
 </head>
-<body class="text-center">
+<body class ="container" >
 
 <div class="login-content">
-    <form class="form-signin" th:action="@{/recipe/register/save}" th:object="${recipe}" method="post">
+    <form  th:action="@{/recipe/register/save}" th:object="${recipe}" method="post">
         <h1 class="h3 mb-3 font-weight-normal"> Create a new recipe </h1>
 
-        <label for="recipeTitle" class="sr-only">Recipe Title</label>
+        <label for="recipeTitle" >Recipe Title</label>
         <input type="text" id="recipeTitle" th:field="*{recipeTitle}" class="form-control" placeholder="recipe Title">
         <span th:if="${#fields.hasErrors('recipeTitle')}" th:errors="*{recipeTitle}" class="error"></span>
         <br>
 
-        <label for="recipeDescription" class="sr-only">Recipe Description</label>
+        <label for="recipeDescription" >Recipe Description</label>
         <textarea rows="5" cols="25" id="recipeDescription" th:field="*{recipeDescription}" class="form-control"
                   placeholder="recipe Description"></textarea>
         <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}" class="error"></span>
         <br>
 
-        <label for="cookingTime" class="sr-only">Cooking Time</label>
+        <label for="cookingTime" >Cooking Time</label>
         <input type="text" id="cookingTime" th:field="*{cookingTime}" class="form-control" placeholder="cooking Time">
         <span th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}" class="error"></span>
         <br>
 
-        <label for="photos" class="sr-only">Photo URL</label>
+        <label for="photos" >Photo URL</label>
         <input type="text" id="photos" th:field="*{photos}" class="form-control" placeholder="photo url">
         <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}" class="error"></span>
         <br>
@@ -72,7 +72,7 @@
         <!--        <input type="hidden" name="site" th:value="${site}"/>-->
         <!--        <input type="hidden" name="redirectUrl" th:value="${'/'+site}"/>-->
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit"> Create</button>
+        <button class="btn btn-primary btn-lg " type="submit"> Create</button>
         <!--        <a th:if="${!site.equals('manager')} " class="btn btn-lg btn-secondary btn-block"-->
         <!--           th:href="@{/signup(site=${site})}"> Register </a>-->
 
