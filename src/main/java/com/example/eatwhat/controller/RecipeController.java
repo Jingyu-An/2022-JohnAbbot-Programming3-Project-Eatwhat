@@ -48,6 +48,14 @@ public class RecipeController {
                        @ModelAttribute("recipeCategories") RecipeCategory recipeCat,
                        Model model) throws IOException {
 
+        // join Recipe category to the recipe
+        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
+        recipeCategories.forEach(item -> {
+            if ((recipeCat.getId()) == (item.getId())) {
+                recipe.recipeCategory = item;
+            }
+        });
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipe", recipe);
             model.addAttribute("recipeCategories", recipeCategories);
@@ -58,13 +66,6 @@ public class RecipeController {
         User user = (User) authentication.getPrincipal();
         recipe.setUser(user);// insert user information
 
-        // join Recipe category to the recipe
-        List<RecipeCategory> recipeCategories = recipeCategoryService.getAll();
-        recipeCategories.forEach(item -> {
-            if ((recipeCat.getId()) == (item.getId())) {
-                recipe.recipeCategory = item;
-            }
-        });
 
         System.out.println("saving a new recipe in db");
         recipeService.save(recipe);
