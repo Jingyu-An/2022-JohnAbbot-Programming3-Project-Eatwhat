@@ -1,4 +1,4 @@
-# Webdevelopment 1 Project : Eatwhat
+# Programming 3 Project : Eatwhat
 ### Recipe Searching App
 1. Frontend : Java Thymeleaf
 2. Backend : Spring Boot
