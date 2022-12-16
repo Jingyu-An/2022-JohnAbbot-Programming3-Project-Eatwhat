@@ -2,6 +2,7 @@
 ### Recipe Searching App
 1. Frontend : Java Thymeleaf
 2. Backend : Spring Boot
+3. Database : MySQL
 
 ![Screenshot 2022-12-16 at 11 28 14 AM](https://user-images.githubusercontent.com/103467264/208144557-ce9eebba-131a-489a-9b8f-550fbe1127e0.png)
 
